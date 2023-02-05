@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import * as yup from 'yup'
 import { useFormik } from "formik";
 import axios from "axios";
+import { TailSpin } from "react-loader-spinner";
 
 const LoginTabset = () => {
+	const [isLoading, setIsLoading] = useState(false)
 
 	const history = useNavigate();
 
@@ -23,26 +25,20 @@ const LoginTabset = () => {
 	const [confirmPassword, setConfirmPassword] = useState("")
 	const [username, setUsername] = useState("")
 
-	const onRegister = async () => {
-		const response = await register({
-			name: username,
-			email: email,
-			password: password,
-		})
-		if (response.status) {
-			history(`${process.env.PUBLIC_URL}/dashboard`);
-		}
-	};
-
 
 	const onLogin = async () => {
+		if (email || password) {
+			setIsLoading(true)
+		}
 		const response = await loginUser({
 			email: email,
 			password: password,
 		})
 		if (response.status) {
+			setIsLoading(false)
 			history(`${process.env.PUBLIC_URL}/dashboard`);
 		}
+
 	};
 
 	const initialValues = {
@@ -64,12 +60,17 @@ const LoginTabset = () => {
 		initialValues: initialValues,
 		validationSchema: registerSchema,
 		onSubmit: async (values) => {
+			setIsLoading(true)
 			try {
 				const res = await axios.post('http://localhost:4000/users/register', values)
-				res && toast.success("Registered Successfully")
+				setIsLoading(false)
+				if (res) {
+					toast.success("Registered Successfully")
+				}
 			}
 			catch (error) {
-				toast.error(error.response.data.message)
+				toast.error(" A user with this email already exists")
+				setIsLoading(false)
 			}
 		}
 	})
@@ -90,6 +91,17 @@ const LoginTabset = () => {
 
 					<TabPanel>
 						<Form className="form-horizontal auth-form">
+							{
+								isLoading
+								&&
+								<div style={
+									{
+										display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", top: "0", bottom: " 0", margin: "auto", zIndex: "100"
+									}
+								}>
+									<TailSpin color="blue" />
+								</div>
+							}
 							<FormGroup>
 								<Input
 									required=""
@@ -166,6 +178,17 @@ const LoginTabset = () => {
 					</TabPanel>
 					<TabPanel>
 						<Form className="form-horizontal auth-form" onSubmit={handleSubmit}>
+							{
+								isLoading
+								&&
+								<div style={
+									{
+										display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", top: "0", bottom: " 0", margin: "auto"
+									}
+								}>
+									<TailSpin />
+								</div>
+							}
 							<FormGroup>
 								<Input
 									type="text"
