@@ -84,7 +84,7 @@ const LoginTabset = () => {
 							Login
 						</Tab>
 						<Tab className="nav-link" onClick={(e) => clickActive(e)}>
-							<Unlock />
+							<Unlock /> 
 							Register
 						</Tab>
 					</TabList>
