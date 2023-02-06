@@ -5,9 +5,10 @@ import Datatable from "../common/datatable";
 import { Button, Card, CardBody, Form, CardHeader, Container, ModalFooter, FormGroup, Input, Label, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { getAllClients, getAllContainers, updateContainer } from "../../utils";
 import { toast } from "react-toastify";
+import { TailSpin } from "react-loader-spinner";
 
 const List_vendors = () => {
-
+	const [isLoading, setIsLoading] = useState(false)
 
 	const Updated = () => toast("Updated Successfully Please Refresh");
 
@@ -51,7 +52,9 @@ const List_vendors = () => {
 
 	useEffect(() => {
 		(async () => {
+			setIsLoading(true)
 			const data = await getAllContainers()
+			setIsLoading(false)
 			setData(data.reverse().map(clientInformation => {
 				return {
 					...clientInformation, Edit: <button
@@ -77,7 +80,19 @@ const List_vendors = () => {
 				<Card>
 					<CardHeader>
 						<h5>Containers Details</h5>
+
 					</CardHeader>
+					{
+						isLoading
+						&&
+						<div style={
+							{
+								display: "flex", alignItems: "center", justifyContent: "center", position: "relative", top: "102px", bottom: " 0", margin: "auto", zIndex: "100"
+							}
+						}>
+							<TailSpin color="green" height={"80px"} />
+						</div>
+					}
 					<CardBody>
 						<div className="clearfix"></div>
 						<div

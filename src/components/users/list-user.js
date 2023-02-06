@@ -6,11 +6,13 @@ import { Button, Card, CardBody, Form, CardHeader, Container, ModalFooter, FormG
 import { getAllClients, updateClient } from "../../utils";
 import { toast } from "react-toastify";
 import SearchHeader from "../common/header_components/searchHeader";
+import { TailSpin } from "react-loader-spinner";
 
 
 
 
 const List_user = () => {
+	const [isLoading, setIsLoading] = useState(false)
 
 	const Updated = () => toast("Updated Successfully Please Refresh");
 
@@ -60,7 +62,9 @@ const List_user = () => {
 
 	useEffect(() => {
 		(async () => {
+			setIsLoading(true)
 			const data = await getAllClients()
+			setIsLoading(false)
 			console.log(data)
 			setData(data.reverse().map(clientInformation => {
 				return {
@@ -89,6 +93,17 @@ const List_user = () => {
 					<CardHeader>
 						<h5>Client Details</h5>
 					</CardHeader>
+					{
+						isLoading
+						&&
+						<div style={
+							{
+								display: "flex", alignItems: "center", justifyContent: "center", position: "relative", top: "102px", bottom: " 0", margin: "auto", zIndex: "100"
+							}
+						}>
+							<TailSpin color="green" height={"80px"} />
+						</div>
+					}
 					<CardBody>
 						<div className="btn-popup pull-right">
 							<Link to="/clients/create-clients" className="btn btn-secondary">
@@ -149,15 +164,6 @@ const List_user = () => {
 											setUpdatedName(e.target.value);
 										}} />
 									</FormGroup>
-									{/* <FormGroup>
-										<Label htmlFor="message-text" className="col-form-label">
-											Updated Id:
-										</Label>
-										<Input type="text" className="form-control" onChange={(e) => {
-											setUpdateId(e.target.value);
-										}} />
-									</FormGroup> */}
-
 									<FormGroup>
 										<Label htmlFor="message-text" className="col-form-label">
 											Updated Email:

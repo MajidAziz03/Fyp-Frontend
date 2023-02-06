@@ -99,7 +99,7 @@ const LoginTabset = () => {
 										display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", top: "0", bottom: " 0", margin: "auto", zIndex: "100"
 									}
 								}>
-									<TailSpin color="blue" />
+									<TailSpin color="green" />
 								</div>
 							}
 							<FormGroup>
