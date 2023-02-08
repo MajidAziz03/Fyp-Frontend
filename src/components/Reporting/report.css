@@ -1,0 +1,110 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.report-container {
+  padding-top: 32px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.report-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 50px;
+}
+
+.report-table th,
+.report-table td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.report-table th {
+  background-color: #9c9af7;
+}
+
+.report-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: rgb(155, 140, 140);
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: -32px;
+}
+
+.conc {
+  margin-top: 22px;
+  font-weight: 520;
+  font-size: 18px;
+}
+
+.bot {
+  margin-bottom: 42px;
+}
+
+.heading {
+  color: #262626;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.type {
+  color: rgb(41, 38, 38);
+  font-weight: 500;
+  font-size: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switcher {
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.contBtn {
+  height: 100%;
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.cliBtn {
+  padding: 5px 12px;
+  border-left: none;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.reportt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.switcher {
+  /* padding: 12px; */
+  margin-top: 55px;
+}
+
+h2 {
+  color: #7e7cf4;
+}
+
+.bot {
+  color: rgb(41, 38, 38);
+}

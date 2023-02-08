@@ -9,6 +9,8 @@ import Invoice from '../components/invoice'
 import Rates from '../components/localization/rates'
 import Taxes from '../components/localization/taxes'
 import Media from '../components/media/media'
+import Reporting from '../components/Reporting/report'
+import ReportTyp from '../components/Reporting/reportTyp'
 import Reports from '../components/reports/report'
 import Transactionsales from '../components/sales/transactions-sales'
 import Profile from '../components/settings/profile'
@@ -67,7 +69,9 @@ const LayoutRoutes = () => {
 
 					<Route
 						path={`${process.env.PUBLIC_URL}/reports/report`}
-						element={<Reports />}
+						element={<ReportTyp />}
+
+
 					/>
 
 					<Route
