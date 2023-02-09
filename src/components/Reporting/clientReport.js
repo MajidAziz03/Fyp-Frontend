@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import './report.css'
 import { Button } from "@mui/material";
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 
 
@@ -50,6 +49,7 @@ const ClientReport = ({ weeklyReport, monthlyReport, }) => {
         weeklyData()
         monthlyData()
     }, [])
+
 
 
     return (

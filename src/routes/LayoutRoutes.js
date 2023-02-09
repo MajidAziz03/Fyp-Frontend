@@ -6,6 +6,7 @@ import Createcoupons from '../components/coupons/create-coupons'
 import ListCoupons from '../components/coupons/list-coupons'
 import Dashboard from '../components/dashboard'
 import Invoice from '../components/invoice'
+import InvoicePage from '../components/invoices/invoicePage'
 import Rates from '../components/localization/rates'
 import Taxes from '../components/localization/taxes'
 import Media from '../components/media/media'
@@ -57,6 +58,10 @@ const LayoutRoutes = () => {
 					<Route
 						path={`${process.env.PUBLIC_URL}/containers/create-containers`}
 						element={<Createvendors />}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/esl/invoices`}
+						element={<InvoicePage />}
 					/>
 					<Route
 						path={`${process.env.PUBLIC_URL}/localization/currency-rates`}

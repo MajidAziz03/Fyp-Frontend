@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import './report.css'
 import { TailSpin } from "react-loader-spinner";
+import jsPDF from 'jspdf'
 
 const Reporting = ({ weeklyReport, monthlyReport }) => {
+
     const [isLoading, setIsLoading] = useState(false)
     const [dataWeekly, setDataWeekly] = useState([]);
     const [dataMonthly, setDataMonthly] = useState([]);
@@ -41,7 +43,10 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
         }
     }
 
-
+    const generatePdf = () => {
+        const doc = new jsPDF('l', 'px')
+        doc.save("report.pdf")
+    }
 
     useEffect(() => {
         weeklyData()
@@ -84,12 +89,12 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
                 {
                     dataWeekly.map((repo, index) => (
                         <>
-                            <h3 className="conc"> Conclusion </h3>
+                            <h3 key={index} className="conc"> Conclusion </h3>
                             <p className="bot"> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}> {repo.ContainersAdded} Containers </span>  are Added  </p>
                         </>
                     ))
                 }
-
+                <button onClick={generatePdf}> download </button>
                 <h2 classNameName="hello" style={{ fontSize: "20px" }}>Monthly Report</h2>
                 <table className="report-table">
                     <thead>
@@ -110,7 +115,7 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
                 {
                     dataWeekly.map((repo, index) => (
                         <>
-                            <h3 className="conc"> Conclusion </h3>
+                            <h3 key={index} className="conc"> Conclusion </h3>
                             <p className="bot"> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}>{repo.ContainersAdded} Containers</span> are Added  </p>
                         </>
                     ))
@@ -124,89 +129,3 @@ export default Reporting;
 
 
 
-
-// import axios from 'axios';
-// import React from 'react'
-// import { useState } from 'react';
-// import { useEffect } from 'react';
-
-// const Reporting = () => {
-//     const [data, setData] = useState([])
-//     const [boolWeek, setBoolWeek] = useState(false)
-//     const [boolMonth, setBoolMonth] = useState(false)
-
-//     const weeklyData = async () => {
-//         try {
-//             const res = await axios.get('http://localhost:4000/reports/weekly/container')
-//             if (res) {
-//                 setBoolWeek(true)
-//                 setData(res.data)
-//                 return {
-//                     weeklyStatus: true
-//                 }
-//             }
-//         }
-//         catch (error) {
-//             alert(error.response.data.message)
-//         }
-//     }
-
-//     const monthlyData = async () => {
-//         try {
-//             const res = await axios.get('http://localhost:4000/reports/monthly/container')
-//             setBoolMonth(res.data)
-//             return {
-//                 monthlyStatus: true
-//             }
-//         }
-//         catch (error) {
-//             alert(error.response.data.message)
-//         }
-//     }
-
-
-
-
-//     useEffect(() => {
-//         weeklyData()
-//         monthlyData()
-//     }, [])
-
-
-//     return (
-//         <>
-//             <h3> Weekly </h3>
-//             {
-//                 boolWeek
-//                     ?
-//                     data.map((rep) => (
-//                         <>
-//                             <p>Date : {rep._id} </p>
-//                             <p>Containers : {rep.ContainersAdded} Containers Added  </p>
-//                         </>
-//                     ))
-//                     :
-//                     null
-//             }
-
-//             <h3> Monthly </h3>
-//             {
-//                 boolMonth
-//                     ?
-//                     data.map((rep) => (
-//                         <>
-//                             <p>Date : {rep._id} </p>
-//                             <p>Containers : {rep.ContainersAdded} Containers Added  </p>
-//                             <p>Containers : {rep.ContainersAdded} Containers Added  </p>
-//                             <p> From {rep._id} {rep.ContainersAdded}  containers are added </p>
-
-//                         </>
-//                     ))
-//                     :
-//                     null
-//             }
-//         </>
-//     )
-// }
-
-// export default Reporting;

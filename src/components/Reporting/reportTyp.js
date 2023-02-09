@@ -34,14 +34,14 @@ const ReportTyp = () => {
                             ?
                             <Button variant='contained' size='small' sx={{ backgroundColor: "#7e7cf4 " }} onClick={handleClient}> Client </Button>
                             :
-                            <Button size='small' onClick={handleClient}> Client </Button>
+                            <Button  size='small' onClick={handleClient}> Client </Button>
                     }
                     {
                         activeContainer
                             ?
                             <Button variant='contained' sx={{ backgroundColor: "#7e7cf4 " }} size='small' onClick={handleContainer}> Container </Button>
                             :
-                            <Button onClick={handleContainer}> Container </Button>
+                            <Button  onClick={handleContainer}> Container </Button>
                     }
                 </div>
             </div>

@@ -1,0 +1,8 @@
+.switcher {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+}
