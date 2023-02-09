@@ -205,9 +205,14 @@ const CustomRepair = () => {
                                 <Input className="form-control" type="text" name='postRepairPicturesUpload' onChange={handleChange} value={values.repairApprovalAttachment.postRepairPicturesUpload} />
                             </div>
                         </FormGroup>
-                        <div className="pull-right">
-                            <Button color="primary" type='submit'>
+                        <div className="pull-right" style={{ marginRight: "82px" }}>
+                            <Button color="primary" type='submit' >
                                 Save
+                            </Button>
+                        </div>
+                        <div className="pull-right" style={{ marginRight: "5px" }} >
+                            <Button color="primary" style={{ padding: "8.5px 8px" }} >
+                                Cancel
                             </Button>
                         </div>
                     </Form>

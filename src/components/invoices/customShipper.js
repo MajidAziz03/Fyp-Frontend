@@ -117,20 +117,20 @@ const CustomShipper = () => {
                                 <Input className="form-control" type="text" name='postOfLoading' onChange={handleChange} value={values.postOfLoading} />
                             </div>
                         </FormGroup>
-                        <div className="pull-right">
-                            <Button color="primary" type='submit'>
+                        <div className="pull-right" style={{ marginRight: "82px" }}>
+                            <Button color="primary" type='submit' >
                                 Save
                             </Button>
                         </div>
-                        <div className="pull-right">
-                            <Button color="primary"  >
+                        <div className="pull-right" style={{ marginRight: "5px" }} >
+                            <Button color="primary" style={{ padding: "8.5px 8px" }} >
                                 Cancel
                             </Button>
                         </div>
                     </Form>
                 </TabPanel>
             </Tabs>
-        </Fragment>
+        </Fragment >
     );
 };
 

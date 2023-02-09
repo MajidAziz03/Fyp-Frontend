@@ -95,14 +95,15 @@ const DisplayInvoice = () => {
                         }
                     </div>
                     <div className="btn-popup pull-right" style={{ backgroundColor: "yellow", position: "relative" }}>
-                        <Link to={'/invoice/new'}><Button variant='contained' sx={{
-                            backgroundColor: "#7c7cf4",
-                            textDecoration: "none",
-                            position: "absolute",
-                            right: "32px"
-                        }} size='small' onClick={handleBooking} > Create New Invoice </Button></Link>
+                        <Link to='/invoice'>
+                            <Button variant='contained'
+                                sx={{
+                                    backgroundColor: "#7c7cf4",
+                                    textDecoration: "none",
+                                    position: "absolute",
+                                    right: "32px"
+                                }} size='small'> Back </Button></Link>
                     </div>
-
                     {
                         reportType === 'booking'
                             ?

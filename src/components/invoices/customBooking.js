@@ -4,6 +4,7 @@ import { Tabs, TabList, TabPanel, Tab } from "react-tabs";
 import { useFormik } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 
 const initialValues = {
@@ -172,10 +173,17 @@ const CustomBooking = () => {
                                 <Input className="form-control" type="text" name='dgClass' onChange={handleChange} value={values.dgClass} />
                             </div>
                         </FormGroup>
-                        <div className="pull-right">
-                            <Button color="primary" type='submit'>
+                        <div className="pull-right" style={{ marginRight: "82px" }}>
+                            <Button color="success" style={{ backgroundColor: "green" }} type='submit'>
                                 Save
                             </Button>
+                        </div>
+                        <div className="pull-right" style={{ marginRight: "5px" }}>
+                            <Link to='/invoice'>
+                                <Button color="primary" style={{ padding: "8.5px 8px" }}>
+                                    Show Bookings
+                                </Button>
+                            </Link>
                         </div>
                     </Form>
                 </TabPanel>
