@@ -7,11 +7,14 @@ import InvoiceBooking from './invoiceBooking.js';
 // import InvoiceRepair from './invoiceRepair.js';
 import InvoiceShipper from './invoiceShipper.js'
 import { Card, CardBody, Form, CardHeader, Container, ModalFooter, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, } from "reactstrap";
-import RepairInvoice from './repairInvoice';
 // import RepairInvoice from './repairInvoice';
+import NewInvoice from './bookingInvoiceCreate';
+import RepairNewInvoice from './repairInvoiceCreate';
+import ShipperCreateInvoice from './shipperInvoiceCreate';
 
 
-const InvoicePage = () => {
+const DisplayInvoice = () => {
+
     const [activeBooking, setActiveBooking] = useState(true)
     const [activeRepair, setActiveRepair] = useState(false)
     const [activeShipper, setActiveShipper] = useState(false)
@@ -23,7 +26,6 @@ const InvoicePage = () => {
         setActiveRepair(false)
         setActiveShipper(false)
         setreportType('booking')
-
     }
 
     const handleRepair = () => {
@@ -45,26 +47,26 @@ const InvoicePage = () => {
 
     return (
         <Fragment>
-            <Breadcrumb title="Invoice List" />
+            <Breadcrumb title="Select Invoice Type" />
             <Container fluid={true}>
                 <Card>
                     {
                         reportType === 'booking'
                             ?
                             <CardHeader>
-                                <h5>Booking Invoice Details</h5>
+                                <h5>Create New Booking</h5>
                             </CardHeader>
                             :
                             reportType === 'repair'
                                 ?
                                 <CardHeader>
-                                    <h5>Repair Invoice Details</h5>
+                                    <h5>Create New Repair</h5>
                                 </CardHeader>
                                 :
                                 reportType === 'shipper'
                                     ?
                                     <CardHeader>
-                                        <h5>Shipper Invoice Details</h5>
+                                        <h5>Create New Shipper</h5>
                                     </CardHeader>
                                     :
                                     null
@@ -104,15 +106,15 @@ const InvoicePage = () => {
                     {
                         reportType === 'booking'
                             ?
-                            <InvoiceBooking />
+                            <NewInvoice />
                             :
                             reportType === 'repair'
                                 ?
-                                <RepairInvoice />
+                                <RepairNewInvoice />
                                 :
                                 reportType === 'shipper'
                                     ?
-                                    <InvoiceShipper />
+                                    <ShipperCreateInvoice />
                                     :
                                     null
                     }
@@ -122,4 +124,4 @@ const InvoicePage = () => {
     )
 }
 
-export default InvoicePage;
+export default DisplayInvoice;

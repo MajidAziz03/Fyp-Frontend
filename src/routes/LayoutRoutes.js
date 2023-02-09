@@ -7,6 +7,7 @@ import ListCoupons from '../components/coupons/list-coupons'
 import Dashboard from '../components/dashboard'
 import Invoice from '../components/invoice'
 import InvoicePage from '../components/invoices/invoicePage'
+import NewInvoice from '../components/invoices/bookingInvoiceCreate'
 import Rates from '../components/localization/rates'
 import Taxes from '../components/localization/taxes'
 import Media from '../components/media/media'
@@ -19,6 +20,10 @@ import Createuser from '../components/users/create-user'
 import Listuser from '../components/users/list-user'
 import Createvendors from '../components/vendors/create.vendors'
 import Listvendors from '../components/vendors/list-vendors'
+import RepairNewInvoice from '../components/invoices/repairInvoiceCreate'
+import ShipperCreateInvoice from '../components/invoices/shipperInvoiceCreate'
+import DisplayInvoice from '../components/invoices/displayCreating'
+// import InvoicePage from '../components/invoices/invoicePage.js'
 
 const LayoutRoutes = () => {
 	return (
@@ -41,6 +46,10 @@ const LayoutRoutes = () => {
 					<Route
 						path={`${process.env.PUBLIC_URL}/coupons/create-coupons`}
 						element={<Createcoupons />}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/invoice/new`}
+						element={<DisplayInvoice />}
 					/>
 					<Route path={`${process.env.PUBLIC_URL}/media`} element={<Media />} />
 					<Route
@@ -86,7 +95,8 @@ const LayoutRoutes = () => {
 
 					<Route
 						path={`${process.env.PUBLIC_URL}/invoice`}
-						element={<Invoice />}
+						// element={<Invoice />}
+						element={<InvoicePage />}
 					/>
 
 					<Route
