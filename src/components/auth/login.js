@@ -7,7 +7,7 @@ import "../../assets/scss/slick.scss";
 import "../../assets/scss/slick-theme.scss";
 import { Card, CardBody, Col, Container, Row } from "reactstrap";
 import { toast } from "react-toastify";
-
+import cont from '../../cont.ico'
 
 const Login = () => {
 	const Login = () => toast("Wow so easy!");
@@ -27,7 +27,8 @@ const Login = () => {
 							<Col className="col-md-5 p-0 card-left">
 								<Card className="bg-primary">
 									<div className="svg-icon">
-										<img alt="" src={stats} className="Img-fluid" />
+										{/* <img alt="" src={stats} className="Img-fluid" /> */}
+										<img alt="" src={cont} className="Img-fluid" />
 									</div>
 									<Slider className="single-item" {...settings}>
 										<div>

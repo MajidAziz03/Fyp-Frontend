@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { toast, Spinner } from "react-toastify";
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Button } from "reactstrap";
 
 const InvoiceBooking = () => {
   const [data, setData] = useState([]);
@@ -19,11 +22,94 @@ const InvoiceBooking = () => {
       toast.error(error.response.data.message);
     }
   };
-
   useEffect(() => {
     getData();
   }, []);
 
+
+
+  const styles = StyleSheet.create({
+    header: {
+      fontSize: 30,
+      fontWeight: "bold",
+      textAlign: "center",
+      marginVertical: 20
+    },
+    invoiceContainer: {
+      borderWidth: 1,
+      borderColor: "#ccc",
+      marginVertical: 10,
+      padding: 10
+    },
+    row: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      borderBottomWidth: 1,
+      borderColor: "#ccc",
+      paddingVertical: 10,
+      paddingHorizontal: 20
+    },
+
+    label: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: "#555"
+    }
+  });
+
+
+
+
+
+  const MyDocument = () => (
+    <Document>
+      {data.map((invoice, index) => (
+        <Page size="A4" key={invoice._id}>
+          <View>
+            <Text style={styles.header}>Booking Invoice Information</Text>
+            <View style={styles.invoiceContainer}>
+              <View style={styles.row}>
+                <Text style={styles.label}>Invoice:</Text>
+                <Text style={{ fontSize: 20, fontWeight: "bold", color: "#ff0000" }}>{index + 1}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>ID:</Text>
+                <Text>{invoice._id}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Booking:</Text>
+                <Text>{invoice.booking}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Date:</Text>
+                <Text>{invoice.bookingDate}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>BookingBy:</Text>
+                <Text>{invoice.bookingBy}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Status:</Text>
+                <Text>{invoice.statusOfBooking}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Aprroved By:</Text>
+                <Text>{invoice.approvedBy}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Ref:</Text>
+                <Text>{invoice.ref}</Text>
+              </View>
+              <View style={[styles.row,]}>
+                <Text style={styles.label}>Agent Pol:</Text>
+                <Text>{invoice.agentPol}</Text>
+              </View>
+            </View>
+          </View>
+        </Page>
+      ))}
+    </Document>
+  );
   return (
     <>
       {
@@ -38,6 +124,11 @@ const InvoiceBooking = () => {
         </div>
       }
       <div className="invoice-container">
+        {isLoading && <p>Loading...</p>}
+        <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="invoice_booking.pdf">
+          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+        </PDFDownloadLink>
+        <h3 style={{ marginTop: "22px" }}> Booking Invoice </h3>
         {data.map((invoice, index) => (
           <div key={index} className="invoice-data" >
             <div className="invoice-data-row" style={{ backgroundColor: "#f3f3fb" }}>
@@ -95,8 +186,8 @@ const InvoiceBooking = () => {
               <div className="invoice-data-value">{invoice.containerType}</div>
             </div>
             <div className="invoice-data-row">
-              <div className="invoice-data-label">Port Of isLoading:</div>
-              <div className="invoice-data-value">{invoice.portOfisLoading}</div>
+              <div className="invoice-data-label">Port Of Loading:</div>
+              <div className="invoice-data-value">{invoice.portOfLoading}</div>
             </div>
             <div className="invoice-data-row">
               <div className="invoice-data-label">Port Of Final:</div>
@@ -111,12 +202,15 @@ const InvoiceBooking = () => {
               <div className="invoice-data-value">{invoice.dg}</div>
             </div>
             <div className="invoice-data-row">
-              <div className="invoice-data-label">DG className:</div>
-              <div className="invoice-data-value">{invoice.dgclassName}</div>
+              <div className="invoice-data-label">DG class:</div>
+              <div className="invoice-data-value">{invoice.dgClass}</div>
             </div>
           </div>
+
         ))
+
         }
+
       </div>
     </>
   )
@@ -124,70 +218,3 @@ const InvoiceBooking = () => {
 
 export default InvoiceBooking;
 
-
-// {
-//   isLoading && (
-//     <div classNameName="isLoading">
-//       <TailSpin />
-//     </div>
-//   )
-// }
-// {
-//   !isLoading && data.length > 0 && (
-//     <>
-//       <h3>Booking Invoices</h3>
-//       <table classNameName="invoice-table">
-//         <thead>
-//           <tr>
-//             <th>ID</th>
-//             <th>Booking</th>
-//             <th>Date</th>
-//             <th>BookingBy</th>
-//             <th>Status</th>
-//             <th>AprrovedBy</th>
-//             <th>ref</th>
-//             <th>AgentPol</th>
-//             <th>Contact</th>
-//             <th>Qunatity</th>
-//             <th>ContainerSize</th>
-//             <th>ContainerType</th>
-//             <th>PortOfisLoading</th>
-//             <th>PortOfFinal</th>
-//             <th>Commodity</th>
-//             <th>DG</th>
-//             <th>DG className</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {data.map((invoice) => (
-//             <tr key={invoice._id}>
-//               <td>{invoice._id}</td>
-//               <td>{invoice.booking.booking}</td>
-//               <td>{invoice.booking.bookingDate}</td>
-//               <td>{invoice.booking.customer}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//               <td>{invoice.booking.amount}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </>
-//   )
-// }
-// {
-//   !isLoading && data.length === 0 && (
-//     <div classNameName="empty-state">
-//       <p>No invoices found</p>
-//     </div>
-//   )
-// }

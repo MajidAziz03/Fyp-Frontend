@@ -9,6 +9,8 @@ import { TailSpin } from "react-loader-spinner";
 
 const List_vendors = () => {
 	const [isLoading, setIsLoading] = useState(false)
+	const [searchTerm, setSearchTerm] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
 
 	const Updated = () => toast("Updated Successfully Please Refresh");
 
@@ -50,6 +52,8 @@ const List_vendors = () => {
 		}));
 	}
 
+
+
 	useEffect(() => {
 		(async () => {
 			setIsLoading(true)
@@ -72,6 +76,20 @@ const List_vendors = () => {
 		})()
 	}, [])
 
+	// const handleChange = event => {
+	// 	setSearchTerm(event.target.value);
+	// };
+
+	// const handleSearch = event => {
+	// 	event.preventDefault();
+	// 	const results = data.filter(item =>
+	// 		item.Container.includes(searchTerm)
+	// 	);
+	// 	console.log(results)
+	// 	console.log(searchResults)
+
+	// 	setSearchResults(results);
+	// };
 
 	return (
 		<Fragment>
@@ -80,7 +98,13 @@ const List_vendors = () => {
 				<Card>
 					<CardHeader>
 						<h5>Containers Details</h5>
-
+						<div style={{ display: "flex", width: "50%" }}>
+							<Input type="text" style={{ flex: "3", marginTop: "12px", height: "40px" }} placeholder="Search Container" />
+							<Button
+								style={{ flex: "1", padding: "1px", height: "40px", marginLeft: "3px", marginTop: "12px" }}
+							// onClick={handleSearch}
+							> Search </Button>
+						</div>
 					</CardHeader>
 					{
 						isLoading

@@ -5,15 +5,10 @@ import Datatable from "../common/datatable";
 import { Button, Card, CardBody, Form, CardHeader, Container, ModalFooter, FormGroup, Input, Label, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { getAllClients, updateClient } from "../../utils";
 import { toast } from "react-toastify";
-import SearchHeader from "../common/header_components/searchHeader";
 import { TailSpin } from "react-loader-spinner";
-
 
 const List_user = () => {
 	const [isLoading, setIsLoading] = useState(false)
-
-	const Updated = () => toast("Updated Successfully Please Refresh");
-
 	const [data, setData] = useState([])
 	const [searchValue, setSearchValue] = useState("")
 	const [filteredData, setFilteredData] = useState([])
@@ -22,6 +17,34 @@ const List_user = () => {
 	const [currentClient, setCurrentClient] = useState({})
 	const [open, setOpen] = useState(false)
 
+	useEffect(() => {
+		(async () => {
+			setIsLoading(true)
+			const data = await getAllClients()
+			setIsLoading(false)
+			setData(data.reverse().map(clientInformation => {
+				return {
+					...clientInformation, Edit: <button
+						className="btn btn-danger btn-sm btn-delete mb-0 b-r-4"
+						onClick={(e) => {
+							setCurrentClient(clientInformation)
+							setOpen(true)
+						}}
+					>
+						Edit
+					</button>
+				}
+			}));
+		})()
+	}, [])
+
+	useEffect(() => {
+		setFilteredData(
+			data.filter(client => {
+				return client.name.toLowerCase().includes(searchValue.toLowerCase());
+			})
+		);
+	}, [searchValue, data]);
 
 	const onOpenModal = () => {
 		setOpen(true);
@@ -30,7 +53,6 @@ const List_user = () => {
 	const onCloseModal = () => {
 		setOpen(false);
 	};
-
 
 	const update = async () => {
 		await updateClient({
@@ -57,37 +79,6 @@ const List_user = () => {
 		}));
 	}
 
-	const handleSearch = (e) => {
-		setSearchValue(e.target.value)
-		const filteredData = data.filter(d => d.name.toLowerCase().includes(e.target.value.toLowerCase()))
-		setFilteredData(filteredData)
-	}
-
-	useEffect(() => {
-		(async () => {
-			setIsLoading(true)
-			const data = await getAllClients()
-			setIsLoading(false)
-			console.log(data)
-			setData(data.reverse().map(clientInformation => {
-				return {
-					...clientInformation, Edit: <button
-						className="btn btn-danger btn-sm btn-delete mb-0 b-r-4"
-						onClick={(e) => {
-							// setUpdateId("")
-							setCurrentClient(clientInformation)
-							setOpen(true)
-						}}
-					>
-						Edit
-					</button>
-				}
-			}));
-
-		})()
-	}, [])
-
-
 	return (
 		<Fragment>
 			<Breadcrumb title="Clients List" parent="Clients" />
@@ -96,8 +87,8 @@ const List_user = () => {
 					<CardHeader>
 						<h5>Client Details</h5>
 						<div style={{ display: "flex", width: "50%" }}>
-							<Input type="text" style={{ flex: "3", marginTop: "12px" }} placeholder="Search Client" />
-							<Button onClick={handleSearch} style={{ flex: "1", padding: "1px", height: "48px", marginLeft: "3px", marginTop: "12px" }}> Search </Button>
+							<Input type="text" style={{ flex: "3", marginTop: "12px", height: "40px" }} placeholder="Search Client" />
+							{/* <Button onClick={handleSearch} style={{ flex: "1", padding: "1px", height: "40px", marginLeft: "3px", marginTop: "12px" }} > Search </Button> */}
 						</div>
 					</CardHeader>
 					{
@@ -210,66 +201,3 @@ export default List_user;
 
 
 
-
-
-// import React, { Fragment, useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
-// import Breadcrumb from "../common/breadcrumb";
-// import Datatable from "../common/datatable";
-// import { Button, Card, CardBody, Form, CardHeader, Container, ModalFooter, FormGroup, Input, Label, Modal, ModalBody, ModalHeader } from "reactstrap";
-// import { getAllClients, updateClient } from "../../utils";
-// import { toast } from "react-toastify";
-// import SearchHeader from "../common/header_components/searchHeader";
-// import { TailSpin } from "react-loader-spinner";
-
-
-
-
-// const List_user = () => {
-// 	const [isLoading, setIsLoading] = useState(false)
-
-// 	const Updated = () => toast("Updated Successfully Please Refresh");
-
-// 	const [data, setData] = useState([])
-// 	// const [updatedId, setUpdateId] = useState("")
-// 	const [updatedName, setUpdatedName] = useState("")
-// 	const [updatedEmail, setUpdatedEmail] = useState("")
-// 	const [currentClient, setCurrentClient] = useState({})
-// 	const [open, setOpen] = useState(false)
-
-
-// 	const onOpenModal = () => {
-// 		setOpen(true);
-// 	};
-
-// 	const onCloseModal = () => {
-// 		setOpen(false);
-// 	};
-
-
-// 	const update = async () => {
-// 		await updateClient({
-// 			id: currentClient.id,
-// 			// updatedId: updatedId,
-// 			name: updatedName,
-// 			email: updatedEmail,
-// 		})
-// 		onCloseModal("VaryingMdo")
-// 		const data = await getAllClients()
-// 		setData(data.reverse().map(clientInformation => {
-// 			return {
-// 				...clientInformation, Edit: <button
-// 					className="btn btn-danger btn-sm btn-delete mb-0 b-r-4"
-// 					onClick={(e) => {
-// 						// setUpdateId("")
-// 						setUpdatedName("")
-// 						setUpdatedEmail("")
-// 						setCurrentClient(clientInformation)
-// 						setOpen(true)
-// 					}}
-// 				>
-// 					Edit
-// 				</button>
-// 			}
-// 		}));
-// 	}

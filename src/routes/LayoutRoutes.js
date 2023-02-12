@@ -23,6 +23,8 @@ import Listvendors from '../components/vendors/list-vendors'
 import RepairNewInvoice from '../components/invoices/repairInvoiceCreate'
 import ShipperCreateInvoice from '../components/invoices/shipperInvoiceCreate'
 import DisplayInvoice from '../components/invoices/displayCreating'
+import ClientPower from '../components/powerbi/powerbiClient'
+import ContainerPower from '../components/powerbi/containerPower'
 // import InvoicePage from '../components/invoices/invoicePage.js'
 
 const LayoutRoutes = () => {
@@ -57,8 +59,16 @@ const LayoutRoutes = () => {
 						element={<Listuser />}
 					/>
 					<Route
+						path={`${process.env.PUBLIC_URL}/power/clientsbi`}
+						element={< ClientPower />}
+					/>
+					<Route
 						path={`${process.env.PUBLIC_URL}/clients/create-clients`}
 						element={<Createuser />}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/power/containersbi`}
+						element={<ContainerPower />}
 					/>
 					<Route
 						path={`${process.env.PUBLIC_URL}/containers/list_containers`}

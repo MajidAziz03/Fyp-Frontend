@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 
@@ -12,8 +13,8 @@ const instance = axios.create({
 export const loginUser = async (body) => {
     try {
         const response = await instance.post('/users/login', body);
-        const { user, token } = response.data;
-        localStorage.setItem('token', token);
+        const { user } = response.data;
+        localStorage.setItem('token', response.data.accessToken);
         localStorage.setItem('user', JSON.stringify(user));
         if (response) {
             toast.success("Login Successfully ")
@@ -28,6 +29,8 @@ export const loginUser = async (body) => {
         }
     }
 }
+
+
 
 export const register = async (body) => {
     try {

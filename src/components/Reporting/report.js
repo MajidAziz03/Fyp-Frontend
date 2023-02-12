@@ -4,11 +4,13 @@ import './report.css'
 import { TailSpin } from "react-loader-spinner";
 import jsPDF from 'jspdf'
 
+
 const Reporting = ({ weeklyReport, monthlyReport }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [dataWeekly, setDataWeekly] = useState([]);
     const [dataMonthly, setDataMonthly] = useState([]);
+    const [containers, setContainers] = useState([]);
 
 
     const weeklyData = async () => {
@@ -43,14 +45,34 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
         }
     }
 
+
+    const getAllContainers = async () => {
+        setIsLoading(true)
+        try {
+            const res = await axios.get('http://localhost:4000/containers/findAll')
+            setContainers(res.data.length)
+            setIsLoading(false)
+            return {
+                status: true
+            }
+        }
+        catch (error) {
+            alert(error.response.data.message)
+        }
+    }
+
     const generatePdf = () => {
         const doc = new jsPDF('l', 'px')
         doc.save("report.pdf")
     }
 
+
+
+
     useEffect(() => {
         weeklyData()
         monthlyData()
+        getAllContainers()
     }, [])
 
 
@@ -68,8 +90,8 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
                 </div>
             }
             <div className="report-container">
-                <h2 className="heading" style={{ marginTop: "12px", marginBottom: "22px", display: "flex", justifyContent: "center", alignItems: "center" }}> Container Report </h2>
-                <h2 style={{ fontSize: "20px" }}>Weekly Report</h2>
+                {/* <h2 className="heading" style={{ marginTop: "12px", marginBottom: "22px", display: "flex", justifyContent: "center", alignItems: "center" }}> Container Report </h2> */}
+                <h2 style={{ fontSize: "20px", marginLeft: "15px" }}>Weekly Report</h2>
                 <table className="report-table">
                     <thead>
                         <tr>
@@ -89,13 +111,12 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
                 {
                     dataWeekly.map((repo, index) => (
                         <>
-                            <h3 key={index} className="conc"> Conclusion </h3>
-                            <p className="bot"> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}> {repo.ContainersAdded} Containers </span>  are Added  </p>
+                            <h3 key={index} className="conc" style={{ marginLeft: "15px" }}> Conclusion </h3>
+                            <p className="bot" style={{ marginLeft: "15px" }}> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}> {repo.ContainersAdded} Containers </span>  are Added  </p>
                         </>
                     ))
                 }
-                <button onClick={generatePdf}> download </button>
-                <h2 classNameName="hello" style={{ fontSize: "20px" }}>Monthly Report</h2>
+                <h2 classNameName="hello" style={{ fontSize: "20px", marginLeft: "15px" }}>Monthly Report</h2>
                 <table className="report-table">
                     <thead>
                         <tr>
@@ -115,10 +136,35 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
                 {
                     dataWeekly.map((repo, index) => (
                         <>
-                            <h3 key={index} className="conc"> Conclusion </h3>
-                            <p className="bot"> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}>{repo.ContainersAdded} Containers</span> are Added  </p>
+                            <h3 key={index} className="conc" style={{ marginLeft: "15px" }}> Conclusion </h3>
+                            <p className="bot" style={{ marginLeft: "15px" }}> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}>{repo.ContainersAdded} Containers</span> are Added  </p>
                         </>
                     ))
+                }
+                <h2 classNameName="hello" style={{ fontSize: "20px", marginLeft: "15px" }}>Total Containers</h2>
+                <table className="report-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Total Containers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            <tr>
+                                <td>{new Date().toLocaleDateString()}</td>
+                                <td>{containers}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                {
+
+                    <>
+                        <h3 className="conc" style={{ marginLeft: "15px" }}> Conclusion </h3>
+                        <p className="bot" style={{ marginLeft: "15px" }}> Total  <span style={{ color: "green", fontWeight: "600" }}>{containers} Containers</span> are added till now  </p>
+                    </>
+
                 }
             </div>
         </>

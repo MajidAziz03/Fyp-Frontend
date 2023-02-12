@@ -48,6 +48,8 @@ import {
 	Table,
 } from "reactstrap";
 import { getContainerData, getLatestContainers, getLineDate, getMonthlyProfit, getTopClients } from "../utils";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 ChartJS.register(
 	CategoryScale,
@@ -64,10 +66,56 @@ ChartJS.register(
 	RadialLinearScale
 );
 
+
+
 const Dashboard = () => {
 	const [containers, setContainers] = useState([])
 	const [containersMonthly, setContainersMonthly] = useState(null)
 	const [topClients, setTopCLients] = useState([])
+	const [monClients, setMonClients] = useState([])
+	const [allCli, setAllCli] = useState([])
+	const [containersAll, setContainersAll] = useState([])
+	const [containersMont, setContainersMont] = useState([])
+
+
+	const getClientsMon = async () => {
+		try {
+			const res = await axios.get('http://localhost:4000/reports/monthly/client')
+			setMonClients(res.data)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+
+	const totCont = async () => {
+		try {
+			const res = await axios.get('http://localhost:4000/containers/findAll')
+			setContainersAll(res.data.length)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const getContainersMonthly = async () => {
+		try {
+			const res = await axios.get('http://localhost:4000/reports/monthly/container')
+			setContainersMont(res.data)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+
+	const totCli = async () => {
+		try {
+			const res = await axios.get('http://localhost:4000/clients/findAll')
+			setAllCli(res.data.length)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 
 	const getTotalYearProfit = (year) => {
 		let sum = 0
@@ -80,16 +128,31 @@ const Dashboard = () => {
 		return sum
 	}
 
+	const getAllContainers = async () => {
+		try {
+			const res = await axios.get('http://localhost:4000/containers/findAll')
+			setContainers(res.data)
+		}
+		catch (error) {
+			toast.error(error.response.data.message)
+		}
+
+	}
 
 	useEffect(() => {
 		(async () => {
 			const data = await getLatestContainers()
 			const data2 = await getTopClients()
-			const slicedArray = data.reverse().slice(0, 5);
-			const monthly = await getContainerData()
-			setContainersMonthly(monthly)
-			setTopCLients(data2.slice(0, 5))
+			const slicedArray = containers.reverse().slice(0, 5);
+			// const monthly = await getContainerData()
+			// setContainersMonthly(monthly)
+			setTopCLients(data2.slice(0, 10))
 			setContainers(slicedArray)
+			getAllContainers()
+			getClientsMon()
+			totCli()
+			totCont()
+			getContainersMonthly()
 		})()
 	}, [])
 
@@ -311,12 +374,11 @@ const Dashboard = () => {
 											</tr>
 										</thead>
 										<tbody>
-
-											{containers.map(container => {
+											{containers.slice(0, 5).map(container => {
 												return <tr>
-													<td>{container.Container}</td>
-													<td className="digits">{container.Container.clientId}</td>
-													<td className="font-danger">{new Date(container.Date).getMonth()} {new Date(container.Date).getFullYear()}</td>
+													<td>{container.containerId}</td>
+													<td className="digits">{container.clientId}</td>
+													<td className="digits"> {container.createdAt} </td>
 													<td className="digits">Active</td>
 												</tr>
 											})}
@@ -332,7 +394,7 @@ const Dashboard = () => {
 					<Col xl="3 xl-50" md="6">
 						<Card className=" order-graph sales-carousel">
 							<CardHeader>
-								<h6>Total Sales</h6>
+								<h6>Total Containers</h6>
 								<Row>
 									<Col className="col-6">
 										<div className="small-chartjs">
@@ -362,7 +424,7 @@ const Dashboard = () => {
 									<Col className="col-6">
 										<div className="value-graph">
 											<h3>
-												8%{" "}
+												{containersAll}%{" "}
 												<span>
 													<i className="fa fa-angle-up font-primary"></i>
 												</span>
@@ -374,15 +436,23 @@ const Dashboard = () => {
 							<CardBody>
 								<Media>
 									<Media body>
-										<span>Sales Last Month</span>
-										<h2 className="mb-0">{getMonthlyProfit()[2022].december} $</h2>
-										<p>
-											8%{" "}
-											<span>
-												<i className="fa fa-angle-up"></i>
-											</span>
-										</p>
-										<h5 className="f-w-600 f-16">Gross sales of Last 6 Months</h5>
+										<span>Created Last Month</span>
+										{
+											containersMont.map((coni) => (
+												<>
+													<h2 className="mb-0">{coni.ContainersAdded} </h2>
+												</>
+											))
+										}
+										<>
+											<p>
+												1.{Math.ceil(Math.random())}%{" "}
+												<span>
+													<i className="fa fa-angle-up"></i>
+												</span>
+											</p>
+										</>
+										{/* <h5 className="f-w-600 f-16">Gross sales of Last 6 Months</h5> */}
 									</Media>
 									<div className="bg-primary b-r-8">
 										<div className="small-box">
@@ -396,7 +466,7 @@ const Dashboard = () => {
 					<Col xl="3 xl-50" md="6">
 						<Card className=" order-graph sales-carousel">
 							<CardHeader>
-								<h6>Total purchase</h6>
+								<h6>Total Clients</h6>
 								<Row>
 									<Col className="col-6">
 										<div className="small-chartjs">
@@ -436,7 +506,7 @@ const Dashboard = () => {
 									<Col className="col-6">
 										<div className="value-graph">
 											<h3>
-												20%{" "}
+												{allCli}%{" "}
 												<span>
 													<i className="fa fa-angle-up font-secondary"></i>
 												</span>
@@ -448,15 +518,28 @@ const Dashboard = () => {
 							<CardBody>
 								<Media>
 									<Media body>
-										<span>Monthly Purchase</span>
-										<h2 className="mb-0">2154</h2>
+										<span> Registered Monthly</span>
+										{/* <h2 className="mb-0">2154</h2> */}
+										{
+											monClients.map((clie) => (
+												<>
+													<h2 className="mb-0">{clie.ClientsRegistered}</h2>
+												</>
+											))
+										}
 										<p>
-											0.13%{" "}
+											0.3%{" "}
 											<span>
 												<i className="fa fa-angle-up"></i>
 											</span>
 										</p>
-										<h5 className="f-w-600 f-16">Avg Gross purchase</h5>
+										{/* <p>
+											0.{Math.ceil(Math.random())}%{" "}
+											<span>
+												<i className="fa fa-angle-up"></i>
+											</span>
+										</p> */}
+										{/* <h5 className="f-w-600 f-16">Avg Gross purchase</h5> */}
 
 									</Media>
 									<div className="bg-secondary b-r-8">
@@ -468,7 +551,7 @@ const Dashboard = () => {
 							</CardBody>
 						</Card>
 					</Col>
-					<Col xl="3 xl-50" md="6">
+					{/* <Col xl="3 xl-50" md="6">
 						<Card className="order-graph sales-carousel">
 							<CardHeader>
 								<h6>Total cash transaction</h6>
@@ -542,8 +625,8 @@ const Dashboard = () => {
 								</Media>
 							</CardBody>
 						</Card>
-					</Col>
-					<Col xl="3 xl-50" md="6">
+					</Col> */}
+					{/* <Col xl="3 xl-50" md="6">
 						<Card className="order-graph sales-carousel">
 							<CardHeader>
 								<h6>Daily Deposits</h6>
@@ -617,11 +700,11 @@ const Dashboard = () => {
 								</Media>
 							</CardBody>
 						</Card>
-					</Col>
-					<Col sm="12">
+					</Col> */}
+					{/* <Col sm="12">
 						<Card>
 							<CardHeader>
-								<h5>Container Buy</h5>
+								<h5>Total Containers</h5>
 							</CardHeader>
 							<CardBody className="sell-graph">
 								{containersMonthly && <Line
@@ -632,8 +715,8 @@ const Dashboard = () => {
 								/>}
 							</CardBody>
 						</Card>
-					</Col>
-					<Col xl="6 xl-100">
+					</Col> */}
+					{/* <Col xl="6 xl-100">
 						<Card className="height-equal">
 							<CardHeader>
 								<h5>Products Cart</h5>
@@ -697,7 +780,7 @@ const Dashboard = () => {
 								</div>
 							</CardBody>
 						</Card>
-					</Col>
+					</Col> */}
 					<Col xl="6 xl-100">
 						<Card className="height-equal">
 							<CardHeader>

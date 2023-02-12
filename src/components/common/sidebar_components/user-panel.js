@@ -1,7 +1,11 @@
+import axios from "axios";
 import React from "react";
 import man from "../../../assets/images/dashboard/man.png";
 
+
 const UserPanel = () => {
+
+	
 	return (
 		<div>
 			<div className="sidebar-user text-center">

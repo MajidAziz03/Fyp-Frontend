@@ -1,14 +1,21 @@
 import React, { Fragment, useEffect, useState } from "react";
 import UserPanel from "./user-panel";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MENUITEMS } from "../../../constants/menu";
 
 // image import
 import logo from "../../../assets/images/dashboard/logo-esl.jpeg";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Button } from "reactstrap";
 
 const Sidebar = () => {
 	const [mainmenu, setMainMenu] = useState(MENUITEMS);
 	const [isChange, setIsChange] = useState(false);
+	const [isLoggedOut, setIsLoggedOut] = useState(false);
+	const history = useLocation()
+
+
 
 	useEffect(() => {
 		const currentUrl = window.location.pathname;
@@ -36,7 +43,7 @@ const Sidebar = () => {
 		return () => {
 			setMainMenu(MENUITEMS);
 		};
-	},[isChange]);
+	}, [isChange]);
 
 	const setNavActive = (item) => {
 		setIsChange(!isChange)
@@ -66,7 +73,7 @@ const Sidebar = () => {
 		item.active = !item.active;
 		setMainMenu(MENUITEMS);
 	};
-	
+
 	const mainMenu = mainmenu.map((menuItem, i) => (
 		<li className={`${menuItem.active ? "active" : ""}`} key={i}>
 			{menuItem.sidebartitle ? (
@@ -78,7 +85,7 @@ const Sidebar = () => {
 				<a
 					className="sidebar-header "
 					href="#javaScript"
-					onClick={(event) =>{event.preventDefault(); return setNavActive(menuItem)}}
+					onClick={(event) => { event.preventDefault(); return setNavActive(menuItem) }}
 				>
 					<menuItem.icon />
 					<span>{menuItem.title}</span>
@@ -125,7 +132,7 @@ const Sidebar = () => {
 							}
 						>
 							{childrenItem.type === "sub" ? (
-								<a href="#javaScript" onClick={(event) =>{event.preventDefault(); return setNavActive(childrenItem)}}>
+								<a href="#javaScript" onClick={(event) => { event.preventDefault(); return setNavActive(childrenItem) }}>
 									<i className="fa fa-circle"></i>
 									{childrenItem.title}{" "}
 									<i className="fa fa-angle-right pull-right"></i>
@@ -148,9 +155,8 @@ const Sidebar = () => {
 							)}
 							{childrenItem.children ? (
 								<ul
-									className={`sidebar-submenu ${
-										childrenItem.active ? "menu-open" : "active"
-									}`}
+									className={`sidebar-submenu ${childrenItem.active ? "menu-open" : "active"
+										}`}
 								>
 									{childrenItem.children.map((childrenSubItem, key) => (
 										<li
@@ -183,7 +189,7 @@ const Sidebar = () => {
 			)}
 		</li>
 	));
-	
+
 
 	return (
 		<Fragment>

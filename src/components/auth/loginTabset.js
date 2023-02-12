@@ -9,6 +9,7 @@ import * as yup from 'yup'
 import { useFormik } from "formik";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
+import { useEffect } from "react";
 
 const LoginTabset = () => {
 	const [isLoading, setIsLoading] = useState(false)
@@ -40,6 +41,16 @@ const LoginTabset = () => {
 		}
 
 	};
+
+	// const Logout = () => {
+	// 	useEffect(() => {
+	// 		localStorage.removeItem('accessToken');
+	// 	}, []);
+	// 	history('/login')
+	// 	return toast.success("You have been logged out");
+	// };
+
+
 
 	const initialValues = {
 		name: '',
@@ -84,7 +95,7 @@ const LoginTabset = () => {
 							Login
 						</Tab>
 						<Tab className="nav-link" onClick={(e) => clickActive(e)}>
-							<Unlock /> 
+							<Unlock />
 							Register
 						</Tab>
 					</TabList>

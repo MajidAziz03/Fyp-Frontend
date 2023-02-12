@@ -189,3 +189,43 @@
   margin-top: 12px;
   margin-bottom: 22px;
 }
+
+.sele {
+  color: lightgray;
+}
+
+small {
+  font-size: 12px;
+  color: gray;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+.btnDownload {
+  padding: 5px 10px;
+  background-color: #7c7cf4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.5s ease all;
+}
+
+.btnDownload:hover {
+  background-color: blue;
+  color: white;
+}
+
+.Embed-container {
+  height: 80vh;
+  width: 100%;
+}
