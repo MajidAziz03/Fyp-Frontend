@@ -5,7 +5,7 @@ import { TailSpin } from "react-loader-spinner";
 import jsPDF from 'jspdf'
 
 
-const Reporting = ({ weeklyReport, monthlyReport }) => {
+const Reporting = () => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [dataWeekly, setDataWeekly] = useState([]);
@@ -60,13 +60,6 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
             alert(error.response.data.message)
         }
     }
-
-    const generatePdf = () => {
-        const doc = new jsPDF('l', 'px')
-        doc.save("report.pdf")
-    }
-
-
 
 
     useEffect(() => {
@@ -134,7 +127,7 @@ const Reporting = ({ weeklyReport, monthlyReport }) => {
                     </tbody>
                 </table>
                 {
-                    dataWeekly.map((repo, index) => (
+                    dataMonthly.map((repo, index) => (
                         <>
                             <h3 key={index} className="conc" style={{ marginLeft: "15px" }}> Conclusion </h3>
                             <p className="bot" style={{ marginLeft: "15px" }}> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}>{repo.ContainersAdded} Containers</span> are Added  </p>

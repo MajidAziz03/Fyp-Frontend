@@ -1,19 +1,24 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { TailSpin } from "react-loader-spinner";
-import { Button } from "@mui/material";
-import './report.css'
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
-const ClientReport = ({ weeklyReport, monthlyReport, }) => {
+
+
+
+
+
+
+
+
+const MyDocument = () => {
+
     const [isLoading, setIsLoading] = useState(false)
     const [active, setActive] = useState(false)
     const [dataWeekly, setDataWeekly] = useState([]);
     const [dataMonthly, setDataMonthly] = useState([]);
     const [clients, setClients] = useState([]);
-
-
 
 
 
@@ -74,8 +79,6 @@ const ClientReport = ({ weeklyReport, monthlyReport, }) => {
     }, [])
 
 
-
-
     const styles = StyleSheet.create({
         header: {
             fontSize: 30,
@@ -89,26 +92,9 @@ const ClientReport = ({ weeklyReport, monthlyReport, }) => {
             marginVertical: 10,
             padding: 10
         },
+    })
 
-
-        row: {
-            flexDirection: "row",
-            justifyContent: "space-between",
-            borderBottomWidth: 1,
-            borderColor: "#ccc",
-            paddingVertical: 10,
-            paddingHorizontal: 20
-        },
-
-        label: {
-            fontSize: 16,
-            fontWeight: "bold",
-            color: "#555"
-        }
-    });
-
-
-     const MyDocument = () => (
+    return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <Text style={styles.title}>Weekly Report</Text>
@@ -168,102 +154,6 @@ const ClientReport = ({ weeklyReport, monthlyReport, }) => {
             </Page>
         </Document >
     )
+}
 
-    return (
-        <>
-            {
-                isLoading
-                &&
-                <div style={
-                    {
-                        display: "flex", alignItems: "center", justifyContent: "center", position: "relative", top: "102px", bottom: " 0", margin: "auto", zIndex: "100"
-                    }
-                }>
-                    <TailSpin color="green" height={"80px"} />
-                </div>
-            }
-            <div className="report-container" >
-                <h2 style={{ fontSize: "20px", marginLeft: "15px", marginTop: "22px", }} >Weekly Report</h2>
-                <table className="report-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Clients Added</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dataWeekly.map((report, index) => (
-                            <tr key={index}>
-                                <td>{report._id}</td>
-                                <td>{report.ClientsRegistered}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {
-                    dataWeekly.map((repo, index) => (
-                        <>
-                            <h3 key={index} className="conc" style={{ marginLeft: "15px" }}> Conclusion </h3>
-                            <p className="bot" style={{ marginLeft: "15px" }}> From {repo._id}  <span style={{ color: "green", fontWeight: "600" }}>{repo.ClientsRegistered} Clients</span>  are Added  </p>
-                        </>
-                    ))
-                }
-                <h2 className="hello" style={{ fontSize: "20px", marginLeft: "15px" }} >Monthly Report</h2>
-                <table className="report-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Clients Added</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dataMonthly.map((report, index) => (
-                            <tr key={index}>
-                                <td>{report._id}</td>
-                                <td>{report.ClientsRegistered}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {
-                    dataWeekly.map((repo, index) => (
-                        <>
-                            <h3 key={index} className="conc" style={{ marginLeft: "15px" }}> Conclusion </h3>
-                            <p className="bot" style={{ marginLeft: "15px", marginBottom: "62px" }}> From {repo._id} <span style={{ color: "green", fontWeight: "600" }}>{repo.ClientsRegistered} Clients </span>  are Added  </p>
-                        </>
-                    ))
-                }
-                <h2 className="hello" style={{ fontSize: "20px", marginTop: "12px", marginLeft: "15px" }} >Total Clients Report</h2>
-                <table className="report-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th> Total Registered Clients</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            <tr>
-                                <td>{new Date().toLocaleDateString()}</td>
-                                <td>{clients}</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                {
-                    dataWeekly.map((repo, index) => (
-                        <>
-                            <h3 key={index} className="conc" style={{ marginLeft: "15px" }}> Conclusion </h3>
-                            <p className="bot" style={{ marginLeft: "15px" }}> Total <span style={{ color: "green", fontWeight: "600" }}>{clients} Clients </span>  are added till now  </p>
-                        </>
-                    ))
-                }
-
-            </div >
-        </>
-    );
-};
-
-export default ClientReport;
-
-
+export default MyDocument

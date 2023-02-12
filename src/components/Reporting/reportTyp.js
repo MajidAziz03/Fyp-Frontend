@@ -5,7 +5,11 @@ import ClientReport from './clientReport';
 import Breadcrumb from "../common/breadcrumb";
 import Reporting from './report';
 import './report.css'
-import Switcher from './reportSwitch'
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import MyDocument from './document';
+import ContainerDoc from './containerDoc';
+import ContDocument from './containerDoc';
+
 
 const ReportTyp = () => {
     const [reportType, setReportType] = useState("client")
@@ -47,13 +51,21 @@ const ReportTyp = () => {
                             reportType === 'client'
                                 ?
                                 <CardHeader>
-                                    <h5> Client Report</h5>
+                                    <h5 style={{ marginBottom: "12px" }}> Client Report</h5>
+                                    {/* {isLoading && <p>Loading...</p>} */}
+                                    <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="repairinvoice.pdf">
+                                        {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+                                    </PDFDownloadLink>
                                 </CardHeader>
                                 :
                                 reportType === 'container'
                                     ?
                                     <CardHeader>
-                                        <h5> Container Report</h5>
+                                        <h5 style={{ marginBottom: "12px" }}> Container Report</h5>
+                                        {/* {isLoading && <p>Loading...</p>} */}
+                                        <PDFDownloadLink className="btnDownload" document={<ContDocument />} fileName="repairinvoice.pdf">
+                                            {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+                                        </PDFDownloadLink>
                                     </CardHeader>
                                     :
                                     null

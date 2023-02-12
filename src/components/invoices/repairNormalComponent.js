@@ -5,6 +5,9 @@ import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { toast, Spinner } from "react-toastify";
 import './invoice.css'
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+
 
 const RepairCompNormal = () => {
     const [type, setType] = useState('normal')
@@ -44,6 +47,132 @@ const RepairCompNormal = () => {
     }, []);
 
 
+    const styles = StyleSheet.create({
+        header: {
+            fontSize: 30,
+            fontWeight: "bold",
+            textAlign: "center",
+            marginVertical: 20
+        },
+        invoiceContainer: {
+            borderWidth: 1,
+            borderColor: "#ccc",
+            marginVertical: 10,
+            padding: 10
+        },
+        row: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            borderBottomWidth: 1,
+            borderColor: "#ccc",
+            paddingVertical: 10,
+            paddingHorizontal: 20
+        },
+
+        label: {
+            fontSize: 16,
+            fontWeight: "bold",
+            color: "#555"
+        },
+    });
+
+
+    const MyDocument = () => (
+        <Document>
+            {data.map((invoice, index) => (
+                <Page size="A4" key={invoice._id}>
+                    <View>
+                        <Text style={styles.header}>Repair Invoice Information</Text>
+                        <View style={styles.invoiceContainer}>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Invoice Number:</Text>
+                                <Text style={{ fontSize: 20, fontWeight: "bold", color: "#ff0000" }}>{index + 1}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>ID:</Text>
+                                <Text>{invoice._id}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Repair Type:</Text>
+                                <Text>{invoice.repairType}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Bill No:</Text>
+                                <Text>{invoice.billNo}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Date Of Issue:</Text>
+                                <Text>{invoice.dateOfIssue}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Container No:</Text>
+                                <Text>{invoice.containerNo}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Haulier Refusal:</Text>
+                                <Text>{invoice.haulierRefusal}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job A:</Text>
+                                <Text>{invoice.repairEstimate.jobA}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job B:</Text>
+                                <Text>{invoice.repairEstimate.jobB}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job C:</Text>
+                                <Text>{invoice.repairEstimate.jobC}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Repair Approval ESL:</Text>
+                                <Text>{invoice.repairEstimateAttachment.RepairApprovalEsl}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job A Net Amount:</Text>
+                                <Text>{invoice.repairEstimateAttachment.jobANetAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job A Net Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobANetAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job A Tax Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobATaxAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job A Gross Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobAGrossAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job B Net Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobBNetAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job B Tax Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobBTaxAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Job B Gross Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobBGrossAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Tax Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.taxAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>Total Amount:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.totalAmount}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </Page>
+            ))
+            }
+        </Document >
+    );
+
+
     return (
         <>
             {
@@ -58,7 +187,11 @@ const RepairCompNormal = () => {
                 </div>
             }
             <div class="invoice-container">
-                <h3> Normal Repair Invoice </h3>
+                {isLoading && <p>Loading...</p>}
+                <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="invoice_booking.pdf">
+                    {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
+                </PDFDownloadLink>
+                <h3 style={{ marginTop: "22px" }}> Normal Repair Invoice </h3>
                 {data.map((invoice, index) => (
                     <div key={index} class="invoice-data">
                         <div className="invoice-data-row" style={{ backgroundColor: "#f3f3fb" }}>

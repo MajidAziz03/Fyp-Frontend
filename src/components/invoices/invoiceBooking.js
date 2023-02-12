@@ -60,7 +60,6 @@ const InvoiceBooking = () => {
 
 
 
-
   const MyDocument = () => (
     <Document>
       {data.map((invoice, index) => (
