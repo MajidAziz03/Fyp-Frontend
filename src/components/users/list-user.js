@@ -6,16 +6,41 @@ import { Button, Card, CardBody, Form, CardHeader, Container, ModalFooter, FormG
 import { getAllClients, updateClient } from "../../utils";
 import { toast } from "react-toastify";
 import { TailSpin } from "react-loader-spinner";
+import axios from 'axios'
+
+
 
 const List_user = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [data, setData] = useState([])
-	const [searchValue, setSearchValue] = useState("")
-	const [filteredData, setFilteredData] = useState([])
+	// const [searchValue, setSearchValue] = useState("")
+	// const [filteredData, setFilteredData] = useState([])
 	const [updatedName, setUpdatedName] = useState("")
 	const [updatedEmail, setUpdatedEmail] = useState("")
 	const [currentClient, setCurrentClient] = useState({})
 	const [open, setOpen] = useState(false)
+
+
+	// const fetching = async () => {
+	// 	setIsLoading(true)
+	// 	const data = await getAllClients()
+	// 	setIsLoading(false)
+	// 	setData(data.reverse().map(clientInformation => {
+	// 		return {
+	// 			...clientInformation, Edit: <button
+	// 				className="btn btn-danger btn-sm btn-delete mb-0 b-r-4"
+	// 				onClick={(e) => {
+	// 					setCurrentClient(clientInformation)
+	// 					setOpen(true)
+	// 				}}
+	// 			>
+	// 				Edit
+	// 			</button>
+	// 		}
+	// 	}));
+	// }
+
+
 
 	useEffect(() => {
 		(async () => {
@@ -38,13 +63,13 @@ const List_user = () => {
 		})()
 	}, [])
 
-	useEffect(() => {
-		setFilteredData(
-			data.filter(client => {
-				return client.name.toLowerCase().includes(searchValue.toLowerCase());
-			})
-		);
-	}, [searchValue, data]);
+	// useEffect(() => {
+	// 	setFilteredData(
+	// 		data.filter(client => {
+	// 			return client.name.toLowerCase().includes(searchValue.toLowerCase());
+	// 		})
+	// 	);
+	// }, [searchValue, data]);
 
 	const onOpenModal = () => {
 		setOpen(true);

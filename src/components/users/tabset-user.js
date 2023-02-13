@@ -9,15 +9,18 @@ const TabsetUser = () => {
 	const [first_name, setFirstName] = useState("")
 	const [last_name, setLastName] = useState("")
 	const [email, setEmail] = useState("")
+	const [containers, setContainers] = useState(" ")
 
 	const onAddClient = () => {
 		addClient({
 			name: `${first_name} ${last_name}`,
-			email: email
+			email: email,
+			contianers: containers
 		})
 		setFirstName("")
 		setLastName("")
 		setEmail("")
+		setContainers("")
 	}
 
 	return (

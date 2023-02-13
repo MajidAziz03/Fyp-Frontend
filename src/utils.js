@@ -53,14 +53,20 @@ export const register = async (body) => {
     }
 }
 
+
+
 export const getAllClients = async () => {
     try {
         const response = await instance.get('/clients/findAll');
         return response.data.map(client => {
-            return { clientId: client._id, name: client.name, email: `${client.email}`, containers: client.containers.length }
+            console.log(client.containers)
+            return {
+                clientId: client._id, name: client.name, email: `${client.email}`,
+                containers: client.containers ? client.containers.length : 0
+            }
         }).sort((a, b) => a.containers - b.containers);
     } catch (error) {
-        if (error.response.status === 404) {
+        if (error.response === 404) {
             console.log('No user found');
         } else {
             console.log(error);
@@ -75,7 +81,7 @@ export const getAllContainers = async () => {
         return response.data.map(container => {
             return {
                 Container: container.containerId, date: container.createdAt,
-                Revenue: `${(new Date().getFullYear() - new Date(container.date).getFullYear()) * 12 * 50} $`,
+                Revenue: `${(new Date().getFullYear() - new Date(container.createdAt).getFullYear()) * 12 * 50} $`,
                 status: <i className="fa fa-circle font-success f-12"></i>
             }
         });

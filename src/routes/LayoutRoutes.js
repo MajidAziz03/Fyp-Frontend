@@ -108,7 +108,6 @@ const LayoutRoutes = () => {
 						// element={<Invoice />}
 						element={<InvoicePage />}
 					/>
-
 					<Route
 						path={`${process.env.PUBLIC_URL}/data-table`}
 						element={<Datatable />}
