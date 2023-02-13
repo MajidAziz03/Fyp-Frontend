@@ -33,7 +33,7 @@ const RepairHeulierComp = () => {
     const getData = async () => {
         setIsLoading(true);
         try {
-            const res = await axios.get("http://localhost:4000/invoices/repair/findAll");
+            const res = await axios.get("https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/invoices/repair/findAll");
             setData(res.data);
             setIsLoading(false);
         } catch (error) {

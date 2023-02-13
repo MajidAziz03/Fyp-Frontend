@@ -16,7 +16,7 @@ const Reporting = () => {
     const weeklyData = async () => {
         setIsLoading(true)
         try {
-            const res = await axios.get('http://localhost:4000/reports/weekly/container')
+            const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/reports/weekly/container')
             if (res) {
                 setDataWeekly(res.data)
                 setIsLoading(false)
@@ -33,7 +33,7 @@ const Reporting = () => {
     const monthlyData = async () => {
         setIsLoading(true)
         try {
-            const res = await axios.get('http://localhost:4000/reports/monthly/container')
+            const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/reports/monthly/container')
             setDataMonthly(res.data)
             setIsLoading(false)
             return {
@@ -49,7 +49,7 @@ const Reporting = () => {
     const getAllContainers = async () => {
         setIsLoading(true)
         try {
-            const res = await axios.get('http://localhost:4000/containers/findAll')
+            const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/containers/findAll')
             setContainers(res.data.length)
             setIsLoading(false)
             return {

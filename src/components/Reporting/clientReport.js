@@ -20,7 +20,7 @@ const ClientReport = ({ weeklyReport, monthlyReport, }) => {
     const weeklyData = async () => {
         setIsLoading(true)
         try {
-            const res = await axios.get('http://localhost:4000/reports/weekly/client')
+            const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/reports/weekly/client')
             if (res) {
                 setDataWeekly(res.data)
                 setIsLoading(false)

@@ -80,7 +80,7 @@ const Dashboard = () => {
 
 	const getClientsMon = async () => {
 		try {
-			const res = await axios.get('http://localhost:4000/reports/monthly/client')
+			const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/reports/monthly/client')
 			setMonClients(res.data)
 		} catch (error) {
 			console.log(error)
@@ -90,7 +90,7 @@ const Dashboard = () => {
 
 	const totCont = async () => {
 		try {
-			const res = await axios.get('http://localhost:4000/containers/findAll')
+			const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/containers/findAll')
 			setContainersAll(res.data.length)
 		} catch (error) {
 			console.log(error)
@@ -99,7 +99,7 @@ const Dashboard = () => {
 
 	const getContainersMonthly = async () => {
 		try {
-			const res = await axios.get('http://localhost:4000/reports/monthly/container')
+			const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/reports/monthly/container')
 			setContainersMont(res.data)
 		} catch (error) {
 			console.log(error)
@@ -109,7 +109,7 @@ const Dashboard = () => {
 
 	const totCli = async () => {
 		try {
-			const res = await axios.get('http://localhost:4000/clients/findAll')
+			const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/clients/findAll')
 			setAllCli(res.data.length)
 		} catch (error) {
 			console.log(error)
@@ -130,7 +130,7 @@ const Dashboard = () => {
 
 	const getAllContainers = async () => {
 		try {
-			const res = await axios.get('http://localhost:4000/containers/findAll')
+			const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/containers/findAll')
 			setContainers(res.data)
 		}
 		catch (error) {

@@ -14,7 +14,7 @@ const InvoiceBooking = () => {
   const getData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get('http://localhost:4000/invoices/booking/findAll');
+      const res = await axios.get('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/invoices/booking/findAll');
       setData(res.data);
       setIsLoading(false);
     } catch (error) {
