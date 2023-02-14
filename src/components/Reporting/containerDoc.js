@@ -126,7 +126,7 @@ const ContDocument = () => {
                 <View style={styles.tableContainer}>
                     <View style={styles.tableRow}>
                         <Text style={styles.tableHeader}>Date</Text>
-                        <Text style={styles.tableHeader}>Clients Added</Text>
+                        <Text style={styles.tableHeader}>Containers Added</Text>
                     </View>
                     {dataWeekly.map((report, index) => (
                         <View key={index} style={styles.tableRow}>
@@ -142,7 +142,7 @@ const ContDocument = () => {
                             <Text style={styles.conclusionText}>
                                 From {repo._id}{" "}
                                 <Text style={styles.highlight}>
-                                    {repo.ContainersAdded} Clients
+                                    {repo.ContainersAdded} Container
                                 </Text>{" "}
                                 are Added
                             </Text>
@@ -153,7 +153,7 @@ const ContDocument = () => {
                 <View style={styles.tableContainer}>
                     <View style={styles.tableRow}>
                         <Text style={styles.tableHeader}>Date</Text>
-                        <Text style={styles.tableHeader}>Clients Added</Text>
+                        <Text style={styles.tableHeader}>Containers Added</Text>
                     </View>
                     {dataMonthly.map((report, index) => (
                         <View key={index} style={styles.tableRow}>
@@ -169,7 +169,7 @@ const ContDocument = () => {
                             <Text style={styles.conclusionText}>
                                 From {repo._id}{" "}
                                 <Text style={styles.highlight}>
-                                    {repo.ContainersAdded} Clients
+                                    {repo.ContainersAdded} Containers
                                 </Text>{" "}
                                 are Added
                             </Text>

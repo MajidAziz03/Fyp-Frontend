@@ -2,12 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import UserPanel from "./user-panel";
 import { Link, useLocation } from "react-router-dom";
 import { MENUITEMS } from "../../../constants/menu";
-
-// image import
 import logo from "../../../assets/images/dashboard/logo-esl.jpeg";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Button } from "reactstrap";
+import { Button } from "@mui/material";
+import { Logout } from "@mui/icons-material";
 
 const Sidebar = () => {
 	const [mainmenu, setMainMenu] = useState(MENUITEMS);
@@ -191,6 +190,18 @@ const Sidebar = () => {
 	));
 
 
+	const handleLogout = async () => {
+		try {
+			localStorage.removeItem('token')
+			history('/login')
+			toast.success("Successfully Logout")
+		}
+		catch (error) {
+			toast.error(error.response.data.message)
+		}
+	}
+
+
 	return (
 		<Fragment>
 			<div className="page-sidebar">
@@ -203,7 +214,20 @@ const Sidebar = () => {
 				</div>
 				<div className="sidebar custom-scrollbar">
 					<UserPanel />
-					<ul className="sidebar-menu">{mainMenu}</ul>
+					<ul className="sidebar-menu">{mainMenu}
+						<Button
+							startIcon={<Logout fontSize="small" />}
+							variant='outlined'
+							sx={{
+								marginTop: "12px", marginLeft: "-5px", transition: "all 0.5s ease", ':hover': {
+									backgroundColor: "#7c7cf4", color: "white", border: "none"
+								}
+							}}
+							onClick={handleLogout}
+						>
+							Logout
+						</Button>
+					</ul>
 				</div>
 			</div>
 		</Fragment>

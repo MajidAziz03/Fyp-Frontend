@@ -84,7 +84,7 @@ const InvoiceShipper = () => {
       {data.map((invoice, index) => (
         <Page size="A4" key={invoice._id}>
           <View style={styles.invoiceContainer}>
-            <Text style={styles.header}>Repair Invoice Information</Text>
+            <Text style={styles.header}>Shipper Invoice Information</Text>
             <View >
               <View style={styles.row}>
                 <Text style={styles.label}>Invoice:</Text>
@@ -153,7 +153,7 @@ const InvoiceShipper = () => {
   return (
     <div class="invoice-container">
       {isLoading && <p>Loading...</p>}
-      <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="repairinvoice.pdf">
+      <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="shipperinvoice.pdf">
         {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
       </PDFDownloadLink>
       <h3 style={{ marginTop: "22px" }} > Sent To Shipper Invoice </h3>

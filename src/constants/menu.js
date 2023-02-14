@@ -60,8 +60,8 @@ export const MENUITEMS = [
     {
         title: 'Invoice', path: '/invoice', icon: Archive, type: 'link', active: false
     },
-    {
-        title: 'Logout', path: '/users/logout', icon: LogIn, type: 'link', active: false
-    }
+    // {
+    //     title: 'Logout', path: '/users/logout', icon: LogIn, type: 'link', active: false
+    // }
 
 ]

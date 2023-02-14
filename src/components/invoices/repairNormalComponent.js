@@ -211,7 +211,7 @@ const RepairCompNormal = () => {
             }
             <div class="invoice-container">
                 {isLoading && <p>Loading...</p>}
-                <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="invoice_booking.pdf">
+                <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="repairNormal.pdf">
                     {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
                 </PDFDownloadLink>
                 <h3 style={{ marginTop: "22px" }}> Normal Repair Invoice </h3>
