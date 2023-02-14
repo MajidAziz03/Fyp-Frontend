@@ -335,7 +335,7 @@ export const addContainer = async (body) => {
 
 export const updateClient = async (body) => {
     try {
-        const response = await instance.post('/clients/updateClient', body);
+        const response = await instance.post('/clients', body);
         toast.info('Updated Successfully!', {
             position: "top-right",
             autoClose: 5000,

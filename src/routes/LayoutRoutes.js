@@ -25,6 +25,8 @@ import ShipperCreateInvoice from '../components/invoices/shipperInvoiceCreate'
 import DisplayInvoice from '../components/invoices/displayCreating'
 import ClientPower from '../components/powerbi/powerbiClient'
 import ContainerPower from '../components/powerbi/containerPower'
+import ClientTable from '../components/tabless/clientTable'
+import ContainerTable from '../components/tabless/containerTable'
 // import InvoicePage from '../components/invoices/invoicePage.js'
 
 const LayoutRoutes = () => {
@@ -56,7 +58,8 @@ const LayoutRoutes = () => {
 					<Route path={`${process.env.PUBLIC_URL}/media`} element={<Media />} />
 					<Route
 						path={`${process.env.PUBLIC_URL}/clients/list-clients`}
-						element={<Listuser />}
+						// element={<Listuser />}
+						element={<ClientTable />}
 					/>
 					<Route
 						path={`${process.env.PUBLIC_URL}/power/clientsbi`}
@@ -72,7 +75,8 @@ const LayoutRoutes = () => {
 					/>
 					<Route
 						path={`${process.env.PUBLIC_URL}/containers/list_containers`}
-						element={<Listvendors />}
+						// element={<Listvendors />}
+						element={<ContainerTable />}
 					/>
 					<Route
 						path={`${process.env.PUBLIC_URL}/containers/create-containers`}

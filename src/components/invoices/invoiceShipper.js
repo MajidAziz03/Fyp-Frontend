@@ -6,7 +6,8 @@ import { toast, Spinner } from "react-toastify";
 import './invoice.css'
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Button } from "reactstrap";
+import { Button } from "@mui/material";
+import './invoice.css'
 
 
 const InvoiceShipper = () => {
@@ -24,6 +25,22 @@ const InvoiceShipper = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/invoices/shipper/${id}`)
+      // console.log(response.data._id)
+      setIsLoading(true)
+      const del = await axios.delete(`http://localhost:4000/invoices/shipper/${response.data._id}`)
+      setIsLoading(false)
+      window.location.reload()
+      toast.success("Deleted Successfully")
+    }
+    catch (error) {
+      toast.error(error.response.data.message)
+    }
+  }
+
 
   useEffect(() => {
     getData();
@@ -195,6 +212,16 @@ const InvoiceShipper = () => {
           <div class="invoice-data-row">
             <div class="invoice-data-label">Port Of Loading:</div>
             <div class="invoice-data-value">{invoice.portOfLoading}</div>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              size="medium"
+              sx={{ backgroundColor: "#7c7cf4" }}
+              onClick={() => handleDelete(invoice._id)}
+            >
+              Delete
+            </Button>
           </div>
         </div>
       ))

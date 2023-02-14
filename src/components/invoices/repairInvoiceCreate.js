@@ -12,7 +12,6 @@ import CustomRepair from './customRepair'
 
 const initialValues = {
     booking: '',
-    // bookingDate: '',
     bookingBy: '',
     statusOfBooking: '',
     approvedBy: '',

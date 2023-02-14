@@ -33,7 +33,7 @@ const RepairCompNormal = () => {
     const getData = async () => {
         setIsLoading(true);
         try {
-            const res = await axios.get("https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/invoices/repair/findAll");
+            const res = await axios.get("http://localhost:4000/invoices/repair/findAll");
             setData(res.data);
             setIsLoading(false);
         } catch (error) {
@@ -41,6 +41,21 @@ const RepairCompNormal = () => {
             toast.error(error.response.data.message);
         }
     };
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await axios.get(`http://localhost:4000/invoices/repair/${id}`)
+            // console.log(response.data._id)
+            setIsLoading(true)
+            const del = await axios.delete(`http://localhost:4000/invoices/repair/${response.data._id}`)
+            setIsLoading(false)
+            window.location.reload()
+            toast.success("Deleted Successfully")
+        }
+        catch (error) {
+            toast.error(error.response.data.message)
+        }
+    }
 
     useEffect(() => {
         getData();
@@ -114,47 +129,47 @@ const RepairCompNormal = () => {
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job A:</Text>
-                                <Text>{invoice.repairEstimate.jobA}</Text>
+                                <Text>{invoice.jobA}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job B:</Text>
-                                <Text>{invoice.repairEstimate.jobB}</Text>
+                                <Text>{invoice.jobB}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job C:</Text>
-                                <Text>{invoice.repairEstimate.jobC}</Text>
+                                <Text>{invoice.jobC}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Repair Approval ESL:</Text>
-                                <Text>{invoice.repairEstimateAttachment.RepairApprovalEsl}</Text>
+                                <Text>{invoice.RepairApprovalEsl}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job A Net Amount:</Text>
-                                <Text>{invoice.repairEstimateAttachment.jobANetAmount}</Text>
+                                <Text>{invoice.jobANetAmount}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job A Net Amount:</Text>
-                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobANetAmount}</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.jobANetAmount}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job A Tax Amount:</Text>
-                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobATaxAmount}</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.jobATaxAmount}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job A Gross Amount:</Text>
-                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobAGrossAmount}</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.jobAGrossAmount}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job B Net Amount:</Text>
-                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobBNetAmount}</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.jobBNetAmount}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job B Tax Amount:</Text>
-                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobBTaxAmount}</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.jobBTaxAmount}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Job B Gross Amount:</Text>
-                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.repairEstimateAttachment.jobBGrossAmount}</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.jobBGrossAmount}</Text>
                             </View>
                             <View style={styles.row}>
                                 <Text style={styles.label}>Tax Amount:</Text>
@@ -163,6 +178,14 @@ const RepairCompNormal = () => {
                             <View style={styles.row}>
                                 <Text style={styles.label}>Total Amount:</Text>
                                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.totalAmount}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>DamagePicturesUpload:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.DamagePicturesUpload}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.label}>postRepairPicturesUpload:</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>{invoice.postRepairPicturesUpload}</Text>
                             </View>
                         </View>
                     </View>
@@ -226,43 +249,43 @@ const RepairCompNormal = () => {
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">Job A </div>
-                            <div class="invoice-data-value">{invoice.repairEstimate.jobA}</div>
+                            <div class="invoice-data-value">{invoice.jobA}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">Job B :</div>
-                            <div class="invoice-data-value">{invoice.repairEstimate.jobB}</div>
+                            <div class="invoice-data-value">{invoice.jobB}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">Job C:</div>
-                            <div class="invoice-data-value">{invoice.repairEstimate.jobC}</div>
+                            <div class="invoice-data-value">{invoice.jobC}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">Repair Approval ESL :</div>
-                            <div class="invoice-data-value">{invoice.repairEstimateAttachment.RepairApprovalEsl}</div>
+                            <div class="invoice-data-value">{invoice.RepairApprovalEsl}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">jobANetAmount :</div>
-                            <div class="invoice-data-value">{invoice.repairEstimateAttachment.jobANetAmount}</div>
+                            <div class="invoice-data-value">{invoice.jobANetAmount}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">jobATaxAmount:</div>
-                            <div class="invoice-data-value">{invoice.repairEstimateAttachment.jobATaxAmount}</div>
+                            <div class="invoice-data-value">{invoice.jobATaxAmount}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">jobAGrossAmount:</div>
-                            <div class="invoice-data-value">{invoice.repairEstimateAttachment.jobAGrossAmount}</div>
+                            <div class="invoice-data-value">{invoice.jobAGrossAmount}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">jobBNetAmount:</div>
-                            <div class="invoice-data-value">{invoice.repairEstimateAttachment.jobBNetAmount}</div>
+                            <div class="invoice-data-value">{invoice.jobBNetAmount}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">jobBTaxAmount:</div>
-                            <div class="invoice-data-value">{invoice.repairEstimateAttachment.jobBTaxAmount}</div>
+                            <div class="invoice-data-value">{invoice.jobBTaxAmount}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">jobBGrossAmount:</div>
-                            <div class="invoice-data-value">{invoice.repairEstimateAttachment.jobBGrossAmount}</div>
+                            <div class="invoice-data-value">{invoice.jobBGrossAmount}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">Tax Amount:</div>
@@ -274,11 +297,21 @@ const RepairCompNormal = () => {
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">Damage Pictures:</div>
-                            <div class="invoice-data-value">{invoice.repairApprovalAttachment.DamagePicturesUpload}</div>
+                            <div class="invoice-data-value">{invoice.DamagePicturesUpload}</div>
                         </div>
                         <div class="invoice-data-row">
                             <div class="invoice-data-label">Post Reapir Pictures:</div>
-                            <div class="invoice-data-value">{invoice.repairApprovalAttachment.postRepairPicturesUpload}</div>
+                            <div class="invoice-data-value">{invoice.postRepairPicturesUpload}</div>
+                        </div>
+                        <div>
+                            <Button
+                                variant="contained"
+                                size="medium"
+                                sx={{ backgroundColor: "#7c7cf4" }}
+                                onClick={() => handleDelete(invoice._id)}
+                            >
+                                Delete
+                            </Button>
                         </div>
                     </div>
                 ))

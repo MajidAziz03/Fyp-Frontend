@@ -229,3 +229,7 @@ input.error {
   height: 80vh;
   width: 100%;
 }
+
+.btnDelete {
+  background-color: red;
+}

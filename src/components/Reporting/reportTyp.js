@@ -53,7 +53,7 @@ const ReportTyp = () => {
                                 <CardHeader>
                                     <h5 style={{ marginBottom: "12px" }}> Client Report</h5>
                                     {/* {isLoading && <p>Loading...</p>} */}
-                                    <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="repairinvoice.pdf">
+                                    <PDFDownloadLink className="btnDownload" document={<MyDocument />} fileName="clientReport.pdf">
                                         {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
                                     </PDFDownloadLink>
                                 </CardHeader>
@@ -63,7 +63,7 @@ const ReportTyp = () => {
                                     <CardHeader>
                                         <h5 style={{ marginBottom: "12px" }}> Container Report</h5>
                                         {/* {isLoading && <p>Loading...</p>} */}
-                                        <PDFDownloadLink className="btnDownload" document={<ContDocument />} fileName="repairinvoice.pdf">
+                                        <PDFDownloadLink className="btnDownload" document={<ContDocument />} fileName="containerReport.pdf">
                                             {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
                                         </PDFDownloadLink>
                                     </CardHeader>

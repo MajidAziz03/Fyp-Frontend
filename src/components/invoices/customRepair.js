@@ -14,26 +14,20 @@ const initialValues = {
     billNo: '',
     containerNo: '',
     haulierRefusal: '',
-    repairEstimate: {
-        jobA: '',
-        jobB: '',
-        jobC: '',
-    },
-    repairEstimateAttachment: {
-        RepairApprovalEsl: '',
-        jobANetAmount: '',
-        jobATaxAmount: '',
-        jobAGrossAmount: '',
-        jobBNetAmount: '',
-        jobBTaxAmount: '',
-        jobBGrossAmount: '',
-    },
+    jobA: '',
+    jobB: '',
+    jobC: '',
+    repairApprovalEsl: '',
+    jobANetAmount: '',
+    jobATaxAmount: '',
+    jobAGrossAmount: '',
+    jobBNetAmount: '',
+    jobBTaxAmount: '',
+    jobBGrossAmount: '',
     taxAmount: '',
     totalAmount: '',
-    repairApprovalAttachment: {
-        DamagePicturesUpload: "",
-        postRepairPicturesUpload: "",
-    },
+    damagePicturesUpload: "",
+    postRepairPicturesUpload: "",
 };
 
 
@@ -41,11 +35,11 @@ const validationRepair = yup.object({
     repairType: yup.string().required('Repair type is required'),
     billNo: yup.string().required('Bill number is required'),
     containerNo: yup.string().required('Container number is required'),
-    haulierRefusal: yup.string().required('Haulier refusal is required'),
+    // haulierRefusal: yup.string().required('Haulier refusal is required'),
     jobA: yup.string().required('Job A is required'),
     jobB: yup.string().required('Job B is required'),
     jobC: yup.string().required('Job C is required'),
-    RepairApprovalEsl: yup.string().required('Repair Approval Esl is required'),
+    repairApprovalEsl: yup.string().required('Repair Approval Esl is required'),
     jobANetAmount: yup.number().required('Job A Net Amount is required'),
     jobATaxAmount: yup.number().required('Job A Tax Amount is required'),
     jobAGrossAmount: yup.number().required('Job A Gross Amount is required'),
@@ -54,7 +48,7 @@ const validationRepair = yup.object({
     jobBGrossAmount: yup.number().required('Job B Gross Amount is required'),
     taxAmount: yup.number().required('Tax amount is required'),
     totalAmount: yup.number().required('Total amount is required'),
-    DamagePicturesUpload: yup.mixed().required('Damage pictures are required'),
+    damagePicturesUpload: yup.mixed().required('Damage pictures are required'),
     postRepairPicturesUpload: yup.mixed().required('Post repair pictures are required'),
 })
 
@@ -65,7 +59,7 @@ const CustomRepair = () => {
         validationSchema: validationRepair,
         onSubmit: async (values) => {
             try {
-                const res = await axios.post('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/invoices/repair', values)
+                const res = await axios.post('http://localhost:4000/invoices/repair', values)
                 toast.success("Saved Successfully ")
                 return {
                     status: true
@@ -92,7 +86,7 @@ const CustomRepair = () => {
                             </Label>
                             <div className="col-xl-8 col-md-7">
                                 <Input sx={{ marginBottom: "12px" }} type="select" className="form-control" name='repairType' onChange={handleChange} value={values.repairType} >
-                                    <option value="">Select Type </option>
+                                    <option value="SelectType">Select Type </option>
                                     <option value="Normal">Normal </option>
                                     <option value="Haulier">Haulier</option>
                                 </Input>
@@ -135,7 +129,13 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> Job A
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobA' onChange={handleChange} value={values.repairEstimate.jobA} />
+                                <Input
+                                    className="form-control"
+                                    type="text"
+                                    name='jobA'
+                                    value={values.jobA}
+                                    onChange={handleChange}
+                                />
                                 {errors.jobA && <div className="error">{errors.jobA}</div>}
                             </div>
                         </FormGroup>
@@ -144,7 +144,13 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> Job B
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobB' onChange={handleChange} value={values.repairEstimate.jobB} />
+                                <Input
+                                    className="form-control"
+                                    type="text"
+                                    name='jobB'
+                                    value={values.jobB}
+                                    onChange={handleChange}
+                                />
                                 {errors.jobB && <div className="error">{errors.jobB}</div>}
 
                             </div>
@@ -154,7 +160,7 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> Job C
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobC' onChange={handleChange} value={values.repairEstimate.jobC} />
+                                <Input className="form-control" type="text" name='jobC' onChange={handleChange} value={values.jobC} />
                                 {errors.jobC && <div className="error">{errors.jobC}</div>}
 
                             </div>
@@ -164,8 +170,8 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> Repair Approval Esl
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='RepairApprovalEsl' onChange={handleChange} value={values.repairEstimateAttachment.RepairApprovalEsl} />
-                                {errors.RepairApprovalEsl && <div className="error">{errors.RepairApprovalEsl}</div>}
+                                <Input className="form-control" type="text" name='repairApprovalEsl' onChange={handleChange} value={values.repairApprovalEsl} />
+                                {errors.repairApprovalEsl && <div className="error">{errors.repairApprovalEsl}</div>}
 
                             </div>
                         </FormGroup>
@@ -174,7 +180,7 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> JobA Net Amount
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobANetAmount' onChange={handleChange} value={values.repairEstimateAttachment.jobANetAmount} />
+                                <Input className="form-control" type="text" name='jobANetAmount' onChange={handleChange} value={values.jobANetAmount} />
                                 {errors.jobANetAmount && <div className="error">{errors.jobANetAmount}</div>}
 
                             </div>
@@ -184,7 +190,7 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> JobA Tax Amount
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobATaxAmount' onChange={handleChange} value={values.repairEstimateAttachment.jobATaxAmount} />
+                                <Input className="form-control" type="text" name='jobATaxAmount' onChange={handleChange} value={values.jobATaxAmount} />
                                 {errors.jobATaxAmount && <div className="error">{errors.jobATaxAmount}</div>}
 
                             </div>
@@ -194,7 +200,7 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> JobA Gross Amount
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobAGrossAmount' onChange={handleChange} value={values.repairEstimateAttachment.jobAGrossAmount} />
+                                <Input className="form-control" type="text" name='jobAGrossAmount' onChange={handleChange} value={values.jobAGrossAmount} />
                                 {errors.jobAGrossAmount && <div className="error">{errors.jobAGrossAmount}</div>}
 
                             </div>
@@ -204,7 +210,7 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> JobB Net Amount
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobBNetAmount' onChange={handleChange} value={values.repairEstimateAttachment.jobBNetAmount} />
+                                <Input className="form-control" type="text" name='jobBNetAmount' onChange={handleChange} value={values.jobBNetAmount} />
                                 {errors.jobBNetAmount && <div className="error">{errors.jobBNetAmount}</div>}
 
                             </div>
@@ -214,7 +220,7 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> JobB Tax Amount
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobBTaxAmount' onChange={handleChange} value={values.repairEstimateAttachment.jobBTaxAmount} />
+                                <Input className="form-control" type="text" name='jobBTaxAmount' onChange={handleChange} value={values.jobBTaxAmount} />
                                 {errors.jobBTaxAmount && <div className="error">{errors.jobBTaxAmount}</div>}
 
                             </div>
@@ -224,7 +230,7 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> JobB Gross Amount
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="text" name='jobBGrossAmount' onChange={handleChange} value={values.repairEstimateAttachment.jobBGrossAmount} />
+                                <Input className="form-control" type="text" name='jobBGrossAmount' onChange={handleChange} value={values.jobBGrossAmount} />
                                 {errors.jobBGrossAmount && <div className="error">{errors.jobBGrossAmount}</div>}
 
                             </div>
@@ -253,9 +259,9 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> Damage Pictures Upload
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="file" accept=".jpg, .jpeg, .png" name='DamagePicturesUpload' onChange={handleChange} value={values.repairApprovalAttachment.DamagePicturesUpload} />
+                                <Input className="form-control" type="text" name='damagePicturesUpload' onChange={handleChange} value={values.damagePicturesUpload} />
                                 {errors.DamagePicturesUpload && <div className="error">{errors.DamagePicturesUpload}</div>}
-                                <small className="form-text text-muted">Please upload image in jpg or jpeg format only.</small>
+                                <small className="form-text text-muted">Please write  in string or link format only.</small>
                             </div>
                         </FormGroup>
                         <FormGroup className="row">
@@ -263,10 +269,10 @@ const CustomRepair = () => {
                                 <span style={{ color: "red" }}>*</span> Post Repair Pictures Upload
                             </Label>
                             <div className="col-xl-8 col-md-7">
-                                <Input className="form-control" type="file" accept=".jpg, .jpeg, .png" name='postRepairPicturesUpload' onChange={handleChange} value={values.repairApprovalAttachment.postRepairPicturesUpload} />
+                                <Input className="form-control" type="text" name='postRepairPicturesUpload' onChange={handleChange} value={values.postRepairPicturesUpload} />
                                 {errors.postRepairPicturesUpload && <div className="error">{errors.postRepairPicturesUpload}</div>}
 
-                                <small className="form-text text-muted">Please upload image in jpg or jpeg format only.</small>
+                                <small className="form-text text-muted">Please write in string or link format only.</small>
                             </div>
                         </FormGroup>
                         <div className="pull-right" style={{ marginRight: "82px" }}>

@@ -5,11 +5,16 @@ import { TailSpin } from "react-loader-spinner";
 import { toast, Spinner } from "react-toastify";
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { Button } from "reactstrap";
+import { Button } from "@mui/material";
+import './invoice.css'
+import { useNavigate } from "react-router-dom";
 
 const InvoiceBooking = () => {
+  const history = useNavigate()
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [sing, setSing] = useState();
+
 
   const getData = async () => {
     setIsLoading(true);
@@ -24,6 +29,23 @@ const InvoiceBooking = () => {
   };
 
 
+
+
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/invoices/booking/${id}`)
+      // console.log(response.data._id)
+      setIsLoading(true)
+      const del = await axios.delete(`http://localhost:4000/invoices/booking/${response.data._id}`)
+      setIsLoading(false)
+      window.location.reload()
+      toast.success("Deleted Successfully")
+    }
+    catch (error) {
+      toast.error(error.response.data.message)
+    }
+  }
 
 
   useEffect(() => {
@@ -208,12 +230,21 @@ const InvoiceBooking = () => {
               <div className="invoice-data-label">DG class:</div>
               <div className="invoice-data-value">{invoice.dgClass}</div>
             </div>
+            <div >
+            </div>
+            <div>
+              <Button
+                variant="contained"
+                size="medium"
+                sx={{ backgroundColor: "#7c7cf4" }}
+                onClick={() => handleDelete(invoice._id)}
+              >
+                Delete
+              </Button>
+            </div>
           </div>
-
         ))
-
         }
-
       </div>
     </>
   )

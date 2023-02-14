@@ -818,6 +818,9 @@ const Dashboard = () => {
 											})}
 										</tbody>
 									</Table>
+									<a href="/clients/list-clients" style={{ marginTop: "12px" }} className="btn btn-primary">
+										View All Clients
+									</a>
 								</div>
 							</CardBody>
 						</Card>

@@ -80,19 +80,53 @@ const MyDocument = () => {
 
 
     const styles = StyleSheet.create({
-        header: {
-            fontSize: 30,
-            fontWeight: "bold",
-            textAlign: "center",
-            marginVertical: 20
+        page: {
+            backgroundColor: '#ffffff',
+            padding: 20,
         },
-        invoiceContainer: {
+        title: {
+            fontSize: 24,
+            fontWeight: 'bold',
+            marginBottom: 10,
+        },
+        tableContainer: {
             borderWidth: 1,
-            borderColor: "#ccc",
-            marginVertical: 10,
-            padding: 10
+            borderColor: '#000000',
+            marginTop: 10,
+            marginBottom: 10,
         },
-    })
+        tableRow: {
+            flexDirection: 'row',
+            borderBottomWidth: 1,
+            borderBottomColor: '#000000',
+        },
+        tableHeader: {
+            flex: 1,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            padding: 5,
+        },
+        tableCell: {
+            flex: 1,
+            textAlign: 'center',
+            padding: 5,
+        },
+        conclusionTitle: {
+            fontSize: 18,
+            fontWeight: 'bold',
+            marginTop: 10,
+            marginBottom: 5,
+        },
+        conclusionText: {
+            fontSize: 14,
+            lineHeight: 18,
+            marginBottom: 10,
+        },
+        highlight: {
+            fontWeight: 'bold',
+        },
+    });
+
 
     return (
         <Document>
@@ -151,6 +185,17 @@ const MyDocument = () => {
                         </View>
                     ))
                 }
+                <Text style={styles.title}>Total Clients</Text>
+                <View style={styles.tableContainer}>
+                    <View style={styles.tableRow}>
+                        <Text style={styles.tableHeader}>Date</Text>
+                        <Text style={styles.tableHeader}>Clients Registered</Text>
+                    </View>
+                    <View style={styles.tableRow}>
+                        <Text style={styles.tableCell}>{new Date().toLocaleDateString()}</Text>
+                        <Text style={styles.tableCell}>{clients}</Text>
+                    </View>
+                </View>
             </Page>
         </Document >
     )
