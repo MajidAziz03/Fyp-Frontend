@@ -64,6 +64,11 @@ const CustomBooking = () => {
         }
     })
 
+
+
+
+
+
     return (
         <Fragment>
             <Tabs>
@@ -292,7 +297,7 @@ const CustomBooking = () => {
                             </div>
                         </FormGroup>
                         <div className="pull-right" style={{ marginRight: "82px" }}>
-                            <Button color="primary" style={{ backgroundColor: "green" }} type='submit'>
+                            <Button color="primary" style={{ backgroundColor: "green" }} type='submit' >
                                 Save
                             </Button>
                         </div>

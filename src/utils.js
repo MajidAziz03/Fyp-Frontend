@@ -320,21 +320,15 @@ export const addClient = async (body) => {
 export const addContainer = async (body) => {
     try {
         const response = await instance.post('/containers', body);
-        toast.success("Container Added Successfully")
+        if (response) {
+            console.log(response)
+        }
         return {
             status: true
         }
     } catch (error) {
-        if (error) {
-            console.log('Something went wrong');
-            console.log(error);
-            toast.error(error.response.data.message)
-        } else {
-            console.log(error);
-        }
-        return {
-            status: false
-        }
+        toast.error(error.response.data.message)
+        console.log(error)
     }
 }
 

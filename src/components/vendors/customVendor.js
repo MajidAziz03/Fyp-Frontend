@@ -3,23 +3,47 @@ import { Tabs, TabList, TabPanel, Tab } from "react-tabs";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { addClient, addContainer } from "../../utils";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { useEffect } from "react";
 
 const CustomContainer = () => {
 
 	const [clientId, setClientId] = useState("")
 	const [containerId, setContainerId] = useState("")
 
-	const onAddClient = () => {
+	// const onAddClient = async () => {
+	// 	try {
+	// 		const adde = await addContainer({
+	// 			clientId: clientId,
+	// 			containerId: containerId,
+	// 		})
+	// 		if (adde) {
+	// 			toast.success("Container created successfully")
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error)
+	// 		toast.error(error.response.data.message)
+	// 	}
+
+	// }
+
+
+	const onAddClient = async () => {
 		try {
-			const adde = addContainer({
-				clientId: clientId,
-				containerId: containerId,
+			const adde = await axios.post('http://localhost:4000/containers', {
+				clientId,
+				containerId
 			})
+			if (adde) {
+				toast.success("Container created successfully")
+			}
 		} catch (error) {
 			console.log(error)
+			toast.error(error.response.data.message)
 		}
-
 	}
+
+
 	return (
 		<Fragment>
 			<Tabs>
@@ -37,6 +61,7 @@ const CustomContainer = () => {
 								<Input
 									className="form-control"
 									id="validationCustom0"
+									value={containerId}
 									onChange={(e) => setContainerId(e.target.value)}
 									type="text"
 									required=""
@@ -51,6 +76,7 @@ const CustomContainer = () => {
 								<Input
 									className="form-control"
 									id="validationCustom1"
+									value={clientId}
 									onChange={(e) => setClientId(e.target.value)}
 									type="text"
 									required=""
