@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Card, CardBody, CardHeader, Container, Input, PaginationItem, PaginationLink } from 'reactstrap'
 import Breadcrumb from '../common/breadcrumb'
+import ContComp2 from './contComp2'
 import './tabl.css'
 
 
@@ -20,6 +21,10 @@ const ContainerTable = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredValue, setFilteredValue] = useState([]);
+    const [type, setType] = useState('btn');
+    const [edit, setEdit] = useState(false);
+
+
 
     const getClients = async () => {
         try {
@@ -33,6 +38,12 @@ const ContainerTable = () => {
     useEffect(() => {
         getClients()
     }, [])
+
+
+
+    const handleEdit = () => {
+        setEdit(true)
+    }
 
 
     const handleDelete = async (id) => {
@@ -139,12 +150,24 @@ const ContainerTable = () => {
                                                                 <span style={{ color: "green", fontSize: "8px", display: "flex", justifyContent: "center", alignItems: "center" }}><Circle fontSize='small' /></span>
                                                             </td>
                                                             <td>
-                                                                <Button
-                                                                    variant='contained'
-                                                                    size='small'
-                                                                >
-                                                                    Edit
-                                                                </Button>
+                                                                {
+                                                                    type === 'btn'
+                                                                        ?
+                                                                        (
+                                                                            <Button
+                                                                                variant='contained'
+                                                                                size='small'
+                                                                                onClick={handleEdit}
+                                                                            >
+                                                                                Edit
+                                                                            </Button>
+                                                                        )
+                                                                        :
+                                                                        type === 'comp'
+                                                                            (
+                                                                                <ContComp2 id={containers._id} />
+                                                                            )
+                                                                }
                                                             </td>
                                                             <td>
                                                                 <Button

@@ -15,7 +15,7 @@ const CustomContainer = () => {
 
 	const onAddClient = async () => {
 		try {
-			const adde = await axios.post('https://fyp-container-server.vercel.app/containers', {
+			const adde = await axios.post('https://fyp-container-server.vercel.app/containers/new', {
 				clientId,
 				containerId
 			})
@@ -73,7 +73,6 @@ const CustomContainer = () => {
 
 			</Tabs>
 			<div className="pull-right">
-				{/* <Button type="button" color="primary" onClick={() => { onAddClient() }}> */}
 				<Button type="button" color="primary" onClick={onAddClient}>
 					Save
 				</Button>
