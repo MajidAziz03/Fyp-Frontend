@@ -70,7 +70,7 @@ const ClientTable = () => {
     }
 
     const handleEdit = (id) => {
-        // console.log({ state: { here: id, name: 'sabaoon' } })
+        console.log({ state: { here: id, name: 'sabaoon' } })
         history('/clients/edit-clients', { state: { here: id, name: 'sabaoon' } });
     }
 

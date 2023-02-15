@@ -27,8 +27,8 @@ const ContainerEdit = () => {
         initialValues: initialValues,
         onSubmit: async (values) => {
             try {
-                const res = await axios.get(`https://fyp-container-server.vercel.app/${location.state.here}`)
-                const updtae = await axios.put(`https://fyp-container-server.vercel.app/${res.data._id}`, values)
+                const res = await axios.get(`https://fyp-container-server.vercel.app/containers/${location.state.here}`)
+                const updtae = await axios.put(`https://fyp-container-server.vercel.app/containers/${res.data._id}`, values)
                 if (updtae) {
                     history('/containers/list_containers')
                     toast.success("Updated Successfully")

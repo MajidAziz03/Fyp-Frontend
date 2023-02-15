@@ -25,9 +25,9 @@ const ContComp2 = () => {
         initialValues: initialValues,
         onSubmit: async (values) => {
             try {
-                const res = await axios.get(`https://fyp-container-server.vercel.app/${location.state.here}`)
+                const res = await axios.get(`https://fyp-container-server.vercel.app/clients/${location.state.here}`)
                 console.log(res)
-                const updtae = await axios.put(`https://fyp-container-server.vercel.app/${res.data._id}`, values)
+                const updtae = await axios.put(`https://fyp-container-server.vercel.app/clients/${res.data._id}`, values)
                 if (updtae) {
                     history('/clients/list-clients')
                     toast.success("Updated Successfully")
@@ -42,7 +42,7 @@ const ContComp2 = () => {
 
 
 
-return (
+    return (
         <>
             <Container style={{ width: "100%", height: "90vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Card className="my-2" style={{
@@ -53,7 +53,7 @@ return (
                 }}>
                     <CardHeader>
                         <h3>
-                            Edit Detailsklklssadsad
+                            Edit Details
                         </h3>
                     </CardHeader>
                     <Form onSubmit={handleSubmit}>
