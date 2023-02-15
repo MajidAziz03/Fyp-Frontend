@@ -20,8 +20,9 @@ export const MENUITEMS = [
         path: '/dashboard', title: 'Dashboard', icon: Home, type: 'link', badgeType: 'primary', active: false
     },
     {
-        title: 'Sales', icon: DollarSign, type: 'sub', active: false, children: [
-            { path: '/sales/transactions', title: 'Transactions', type: 'link' },
+        title: 'Forecast', icon: DollarSign, type: 'sub', active: false, children: [
+            { path: '/forecast', title: 'Quaterly', type: 'link' },
+            { path: '/forecast/yearly', title: 'Yearly', type: 'link' },
         ]
     },
     {

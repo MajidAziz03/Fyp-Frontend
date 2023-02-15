@@ -23,7 +23,7 @@ const ContainerTable = () => {
 
     const getClients = async () => {
         try {
-            const res = await axios.get('http://localhost:4000/containers/findAll')
+            const res = await axios.get('https://fyp-container-server.vercel.app/containers/findAll')
             setData(res.data)
         } catch (error) {
             toast.error(error.response.data.message)
@@ -37,9 +37,9 @@ const ContainerTable = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:4000/containers/${id}`)
+            const response = await axios.get(`https://fyp-container-server.vercel.app/containers/${id}`)
             setIsLoading(true)
-            const del = await axios.delete(`http://localhost:4000/containers/${response.data._id}`)
+            const del = await axios.delete(`https://fyp-container-server.vercel.app/containers/${response.data._id}`)
             if (del) {
                 setIsLoading(false)
                 toast.success("Deleted Successfully")
@@ -211,7 +211,7 @@ const ContainerTable = () => {
                                 </tbody>
                             </Table>
                             <div className="containerPage">
-                                <Pagination>
+                                {/* <Pagination>
                                     <PaginationItem>
                                         <PaginationLink
                                             first
@@ -261,7 +261,7 @@ const ContainerTable = () => {
                                             last
                                         />
                                     </PaginationItem>
-                                </Pagination>
+                                </Pagination> */}
                             </div>
                         </div>
                     </CardBody>

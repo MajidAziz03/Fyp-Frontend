@@ -17,7 +17,7 @@ const InvoiceShipper = () => {
   const getData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get("https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/invoices/shipper/findAll");
+      const res = await axios.get("https://fyp-container-server.vercel.app/invoices/shipper/findAll");
       setData(res.data);
       setIsLoading(false);
     } catch (error) {
@@ -28,10 +28,10 @@ const InvoiceShipper = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:4000/invoices/shipper/${id}`)
+      const response = await axios.get(`https://fyp-container-server.vercel.app/invoices/shipper/${id}`)
       // console.log(response.data._id)
       setIsLoading(true)
-      const del = await axios.delete(`http://localhost:4000/invoices/shipper/${response.data._id}`)
+      const del = await axios.delete(`https://fyp-container-server.vercel.app/invoices/shipper/${response.data._id}`)
       setIsLoading(false)
       window.location.reload()
       toast.success("Deleted Successfully")

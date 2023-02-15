@@ -59,7 +59,7 @@ const CustomRepair = () => {
         validationSchema: validationRepair,
         onSubmit: async (values) => {
             try {
-                const res = await axios.post('http://localhost:4000/invoices/repair', values)
+                const res = await axios.post('https://fyp-container-server.vercel.app/invoices/repair', values)
                 toast.success("Saved Successfully ")
                 return {
                     status: true

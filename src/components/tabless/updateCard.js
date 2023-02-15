@@ -15,9 +15,9 @@ const UpdateCard = () => {
 
     const handleUpdate = async (id) => {
         try {
-            const res = await axios.get(`http://localhost:4000/clients/${id}`)
+            const res = await axios.get(`https://fyp-container-server.vercel.app/clients/${id}`)
             if (res) {
-                const up = await axios.put(`http://localhost:4000/clients/${res.data._id}`)
+                const up = await axios.put(`https://fyp-container-server.vercel.app/clients/${res.data._id}`)
                 toast.success("Updated Successfully")
             }
         } catch (error) {

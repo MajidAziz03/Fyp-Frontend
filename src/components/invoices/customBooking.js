@@ -51,7 +51,7 @@ const CustomBooking = () => {
         validationSchema: validationBooking,
         onSubmit: async (values) => {
             try {
-                const res = await axios.post('https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/invoices/booking', values)
+                const res = await axios.post('https://fyp-container-server.vercel.app/invoices/booking', values)
                 toast.success("Saved Successfully ")
                 return {
                     status: true

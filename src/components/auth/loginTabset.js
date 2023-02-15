@@ -73,7 +73,7 @@ const LoginTabset = () => {
 		onSubmit: async (values) => {
 			setIsLoading(true)
 			try {
-				const res = await axios.post('http://localhost:4000/users/register', values)
+				const res = await axios.post('https://fyp-container-server.vercel.app/users/register', values)
 				setIsLoading(false)
 				if (res) {
 					toast.success("Registered Successfully")

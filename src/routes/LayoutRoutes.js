@@ -29,7 +29,8 @@ import ClientTable from '../components/tabless/clientTable'
 import ContainerTable from '../components/tabless/containerTable'
 import UpdateCard from '../components/tabless/updateCard'
 import EditComp2 from '../components/tabless/clientEdit'
-import Forcast from '../components/Forcast'
+import Forcast from '../components/forcast/Forcast'
+import YearlyForcast from '../components/forcast/yearly'
 
 // import InvoicePage from '../components/invoices/invoicePage.js'
 
@@ -73,6 +74,10 @@ const LayoutRoutes = () => {
 					<Route
 						path={`${process.env.PUBLIC_URL}/power/clientsbi`}
 						element={< ClientPower />}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/forecast/yearly`}
+						element={< YearlyForcast />}
 					/>
 					<Route
 						path={`${process.env.PUBLIC_URL}/clients/create-clients`}

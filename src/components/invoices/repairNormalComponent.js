@@ -33,7 +33,7 @@ const RepairCompNormal = () => {
     const getData = async () => {
         setIsLoading(true);
         try {
-            const res = await axios.get("http://localhost:4000/invoices/repair/findAll");
+            const res = await axios.get("https://fyp-container-server.vercel.app/invoices/repair/findAll");
             setData(res.data);
             setIsLoading(false);
         } catch (error) {
@@ -44,10 +44,10 @@ const RepairCompNormal = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:4000/invoices/repair/${id}`)
+            const response = await axios.get(`https://fyp-container-server.vercel.app/invoices/repair/${id}`)
             // console.log(response.data._id)
             setIsLoading(true)
-            const del = await axios.delete(`http://localhost:4000/invoices/repair/${response.data._id}`)
+            const del = await axios.delete(`https://fyp-container-server.vercel.app/invoices/repair/${response.data._id}`)
             setIsLoading(false)
             window.location.reload()
             toast.success("Deleted Successfully")

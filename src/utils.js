@@ -4,8 +4,7 @@ import { toast } from 'react-toastify';
 
 
 // const baseURL = 'https://fyp-container-server.vercel.app/';
-const baseURL = 'https://fyp-container-server-h26k1dquz-sleepyqadir.vercel.app/'
-// const baseURL = 'http://localhost:4000/';
+const baseURL = 'https://fyp-container-server.vercel.app/'
 
 const instance = axios.create({
     baseURL,
@@ -364,7 +363,7 @@ export const updateClient = async (body) => {
 export const updateContainer = async (body) => {
     try {
         console.log({ body })
-        const response = await instance.post('/containers/updateContainer', body);
+        const response = await instance.post('/containers', body);
         return {
             status: true
         }

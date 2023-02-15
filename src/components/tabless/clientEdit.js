@@ -28,8 +28,8 @@ const EditComp2 = ({ id }) => {
         initialValues: initialValues,
         onSubmit: async (values) => {
             try {
-                const res = await axios.get(`http://localhost:4000/clients/${id}`)
-                const updtae = await axios.put(`http://localhost:4000/clients/${res.data._id}`, values)
+                const res = await axios.get(`https://fyp-container-server.vercel.app/clients/${id}`)
+                const updtae = await axios.put(`https://fyp-container-server.vercel.app/clients/${res.data._id}`, values)
                 if (updtae) {
                     history('/clients/list-clients')
                     toast.success("Updated Successfully")

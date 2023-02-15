@@ -11,26 +11,11 @@ const CustomContainer = () => {
 	const [clientId, setClientId] = useState("")
 	const [containerId, setContainerId] = useState("")
 
-	// const onAddClient = async () => {
-	// 	try {
-	// 		const adde = await addContainer({
-	// 			clientId: clientId,
-	// 			containerId: containerId,
-	// 		})
-	// 		if (adde) {
-	// 			toast.success("Container created successfully")
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error)
-	// 		toast.error(error.response.data.message)
-	// 	}
-
-	// }
 
 
 	const onAddClient = async () => {
 		try {
-			const adde = await axios.post('http://localhost:4000/containers', {
+			const adde = await axios.post('https://fyp-container-server.vercel.app/containers', {
 				clientId,
 				containerId
 			})
@@ -83,20 +68,6 @@ const CustomContainer = () => {
 								/>
 							</div>
 						</FormGroup>
-						{/* <FormGroup className="row">
-							<Label className="col-xl-3 col-md-4">
-								<span>*</span> Client Email
-							</Label>
-							<div className="col-xl-8 col-md-7">
-								<Input
-									className="form-control"
-									onChange={(e) => setEmail(e.target.value)}
-									id="validationCustom3"
-									type="number"
-									required=""
-								/>
-							</div>
-						</FormGroup> */}
 					</Form>
 				</TabPanel>
 

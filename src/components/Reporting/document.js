@@ -25,7 +25,7 @@ const MyDocument = () => {
     const weeklyData = async () => {
         setIsLoading(true)
         try {
-            const res = await axios.get('http://localhost:4000/reports/weekly/client')
+            const res = await axios.get('https://fyp-container-server.vercel.app/reports/weekly/client')
             if (res) {
                 setDataWeekly(res.data)
                 setIsLoading(false)
@@ -42,7 +42,7 @@ const MyDocument = () => {
     const monthlyData = async () => {
         setIsLoading(true)
         try {
-            const res = await axios.get('http://localhost:4000/reports/monthly/client')
+            const res = await axios.get('https://fyp-container-server.vercel.app/reports/monthly/client')
             setDataMonthly(res.data)
             setIsLoading(false)
             return {
@@ -60,7 +60,7 @@ const MyDocument = () => {
     const getAllClients = async () => {
         setIsLoading(true)
         try {
-            const res = await axios.get('http://localhost:4000/clients/findAll/')
+            const res = await axios.get('https://fyp-container-server.vercel.app/clients/findAll/')
             setClients(res.data.length)
             setIsLoading(false)
             return {
