@@ -1,6 +1,10 @@
 @import 'assets/scss/app.scss';
 
- 
-.form-error{
+
+* {
+    text-decoration: none;
+}
+
+.form-error {
     color: red;
 }

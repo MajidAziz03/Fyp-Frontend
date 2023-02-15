@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Card, CardBody, CardHeader, CardText, CardTitle, Container, Input, PaginationItem, PaginationLink } from 'reactstrap'
 import Breadcrumb from '../common/breadcrumb'
+import EditComp2 from './clientEdit'
 import './tabl.css'
 
 
@@ -20,6 +21,7 @@ const ClientTable = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredValue, setFilteredValue] = useState([]);
     const [edit, setEdit] = useState(false);
+    const [type, setType] = useState('btn');
 
 
     const getClients = async () => {
@@ -153,13 +155,24 @@ const ClientTable = () => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                <Button
-                                                                    variant='contained'
-                                                                    size='small'
-                                                                    onClick={handleEdit}
-                                                                >
-                                                                    Edit
-                                                                </Button>
+                                                                {
+                                                                    type === 'btn'
+                                                                        ?
+                                                                        (
+                                                                            <Button
+                                                                                variant='contained'
+                                                                                size='small'
+                                                                                onClick={handleEdit}
+                                                                            >
+                                                                                Edit
+                                                                            </Button>
+                                                                        )
+                                                                        :
+                                                                        type === 'comp'
+                                                                            (
+                                                                                <EditComp2 id={client._id} />
+                                                                            )
+                                                                }
                                                             </td>
                                                             <td>
                                                                 <Button
@@ -203,12 +216,15 @@ const ClientTable = () => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                <Button
-                                                                    variant='contained'
-                                                                    size='small'
-                                                                >
-                                                                    Edit
-                                                                </Button>
+                                                                <Link to='/containers/edit-containers'>
+                                                                    <Button
+                                                                        variant='contained'
+                                                                        size='small'
+                                                                        onClick={() => setType('comp')}
+                                                                    >
+                                                                        Edit
+                                                                    </Button>
+                                                                </Link>
                                                             </td>
                                                             <td>
                                                                 <Button

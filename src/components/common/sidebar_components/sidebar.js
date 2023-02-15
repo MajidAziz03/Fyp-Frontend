@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import UserPanel from "./user-panel";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MENUITEMS } from "../../../constants/menu";
 import logo from "../../../assets/images/dashboard/logo-esl.jpeg";
 import axios from "axios";
@@ -12,7 +12,7 @@ const Sidebar = () => {
 	const [mainmenu, setMainMenu] = useState(MENUITEMS);
 	const [isChange, setIsChange] = useState(false);
 	const [isLoggedOut, setIsLoggedOut] = useState(false);
-	const history = useLocation()
+	const history = useNavigate()
 
 
 
@@ -193,7 +193,7 @@ const Sidebar = () => {
 	const handleLogout = async () => {
 		try {
 			localStorage.removeItem('token')
-			history('/login')
+			history('/')
 			toast.success("Successfully Logout")
 		}
 		catch (error) {
