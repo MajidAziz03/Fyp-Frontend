@@ -59,7 +59,6 @@ export const getAllClients = async () => {
     try {
         const response = await instance.get('/clients/findAll');
         return response.data.map(client => {
-            console.log(client.containers)
             return {
                 clientId: client._id, name: client.name, email: `${client.email}`,
                 containers: client.containers ? client.containers.length : 0
@@ -67,7 +66,6 @@ export const getAllClients = async () => {
         }).sort((a, b) => a.containers - b.containers);
     } catch (error) {
         if (error.response === 404) {
-            console.log('No user found');
         } else {
             console.log(error);
         }

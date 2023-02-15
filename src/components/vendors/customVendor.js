@@ -15,7 +15,7 @@ const CustomContainer = () => {
 
 	const onAddClient = async () => {
 		try {
-			const adde = await axios.post('https://fyp-container-server.vercel.app/containers/new', {
+			const adde = await axios.post('https://fyp-container-server.vercel.app/containers', {
 				clientId,
 				containerId
 			})

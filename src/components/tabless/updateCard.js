@@ -10,9 +10,6 @@ import './tabl.css'
 
 const UpdateCard = () => {
 
-    
-
-
     const handleUpdate = async (id) => {
         try {
             const res = await axios.get(`https://fyp-container-server.vercel.app/clients/${id}`)
@@ -35,7 +32,7 @@ const UpdateCard = () => {
                 }}>
                     <CardHeader>
                         <h3>
-                            Edit Details
+                            Edit Detailssssssss
                         </h3>
                     </CardHeader>
                     <Form>

@@ -6,19 +6,21 @@ import { Fragment } from 'react'
 import { useState } from 'react'
 import { Pagination, Table } from 'react-bootstrap'
 import { TailSpin } from 'react-loader-spinner'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Card, CardBody, CardHeader, CardText, CardTitle, Container, Input, PaginationItem, PaginationLink } from 'reactstrap'
 import Breadcrumb from '../common/breadcrumb'
-import EditComp2 from './clientEdit'
+import ContComp2 from './contComp2'
 import './tabl.css'
 
 
 
 const ClientTable = () => {
+    const history = useNavigate()
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [editId, setEditId] = useState('')
     const [filteredValue, setFilteredValue] = useState([]);
     const [edit, setEdit] = useState(false);
     const [type, setType] = useState('btn');
@@ -67,8 +69,9 @@ const ClientTable = () => {
         }
     }
 
-    const handleEdit = () => {
-        setEdit(true)
+    const handleEdit = (id) => {
+        // console.log({ state: { here: id, name: 'sabaoon' } })
+        history('/clients/edit-clients', { state: { here: id, name: 'sabaoon' } });
     }
 
 
@@ -155,24 +158,13 @@ const ClientTable = () => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                {
-                                                                    type === 'btn'
-                                                                        ?
-                                                                        (
-                                                                            <Button
-                                                                                variant='contained'
-                                                                                size='small'
-                                                                                onClick={handleEdit}
-                                                                            >
-                                                                                Edit
-                                                                            </Button>
-                                                                        )
-                                                                        :
-                                                                        type === 'comp'
-                                                                            (
-                                                                                <EditComp2 id={client._id} />
-                                                                            )
-                                                                }
+                                                                <Button
+                                                                    variant='contained'
+                                                                    size='small'
+                                                                    onClick={() => { handleEdit(client._id) }}
+                                                                >
+                                                                    Edit
+                                                                </Button>
                                                             </td>
                                                             <td>
                                                                 <Button
@@ -216,15 +208,15 @@ const ClientTable = () => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                <Link to='/containers/edit-containers'>
-                                                                    <Button
-                                                                        variant='contained'
-                                                                        size='small'
-                                                                        onClick={() => setType('comp')}
-                                                                    >
-                                                                        Edit
-                                                                    </Button>
-                                                                </Link>
+                                                                {/* <Link to='/clients/edit-clients'> */}
+                                                                <Button
+                                                                    variant='contained'
+                                                                    size='small'
+                                                                    onClick={() => { handleEdit(client._id) }}
+                                                                >
+                                                                    Edit
+                                                                </Button>
+                                                                {/* </Link> */}
                                                             </td>
                                                             <td>
                                                                 <Button
@@ -304,7 +296,7 @@ const ClientTable = () => {
                     </CardBody>
                 </Card>
             </Container>
-        </Fragment>
+        </Fragment >
     )
 }
 

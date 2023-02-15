@@ -7,7 +7,7 @@ import { Fragment } from 'react'
 import { useState } from 'react'
 import { Pagination, Table } from 'react-bootstrap'
 import { TailSpin } from 'react-loader-spinner'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Card, CardBody, CardHeader, Container, Input, PaginationItem, PaginationLink } from 'reactstrap'
 import Breadcrumb from '../common/breadcrumb'
@@ -23,6 +23,8 @@ const ContainerTable = () => {
     const [filteredValue, setFilteredValue] = useState([]);
     const [type, setType] = useState('btn');
     const [edit, setEdit] = useState(false);
+    const history = useNavigate()
+
 
 
 
@@ -38,12 +40,6 @@ const ContainerTable = () => {
     useEffect(() => {
         getClients()
     }, [])
-
-
-
-    const handleEdit = () => {
-        setEdit(true)
-    }
 
 
     const handleDelete = async (id) => {
@@ -77,6 +73,10 @@ const ContainerTable = () => {
         }
     }
 
+    const handleEdit = (id) => {
+        console.log({ state: { here: id, name: 'sabaoon' } })
+        history('/containers/edit-container', { state: { here: id, name: 'sabaoon' } });
+    }
 
 
     return (
@@ -150,24 +150,13 @@ const ContainerTable = () => {
                                                                 <span style={{ color: "green", fontSize: "8px", display: "flex", justifyContent: "center", alignItems: "center" }}><Circle fontSize='small' /></span>
                                                             </td>
                                                             <td>
-                                                                {
-                                                                    type === 'btn'
-                                                                        ?
-                                                                        (
-                                                                            <Button
-                                                                                variant='contained'
-                                                                                size='small'
-                                                                                onClick={handleEdit}
-                                                                            >
-                                                                                Edit
-                                                                            </Button>
-                                                                        )
-                                                                        :
-                                                                        type === 'comp'
-                                                                            (
-                                                                                <ContComp2 id={containers._id} />
-                                                                            )
-                                                                }
+                                                                <Button
+                                                                    variant='contained'
+                                                                    size='small'
+                                                                    onClick={() => { handleEdit(containers._id) }}
+                                                                >
+                                                                    Edit
+                                                                </Button>
                                                             </td>
                                                             <td>
                                                                 <Button
@@ -208,6 +197,7 @@ const ContainerTable = () => {
                                                                 <Button
                                                                     variant='contained'
                                                                     size='small'
+                                                                    onClick={() => { handleEdit(containers._id) }}
                                                                 >
                                                                     Edit
                                                                 </Button>

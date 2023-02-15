@@ -3,7 +3,7 @@ import { Button } from '@mui/material'
 import axios from 'axios'
 import { useFormik } from 'formik'
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Container, Form, FormGroup, FormText, Input, Label } from 'reactstrap'
 import './tabl.css'
@@ -17,16 +17,17 @@ const initialValues = {
 
 
 
-const ContComp2 = ({ id }) => {
-
+const ContComp2 = () => {
+    const location = useLocation()
+    console.log("id:", location.state.here)
     const history = useNavigate()
-
     const { values, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
         onSubmit: async (values) => {
             try {
-                const res = await axios.get(`https://fyp-container-server.vercel.app/containers/${id}`)
-                const updtae = await axios.put(`https://fyp-container-server.vercel.app/containers/${res.data._id}`, values)
+                const res = await axios.get(`https://fyp-container-server.vercel.app/${location.state.here}`)
+                console.log(res)
+                const updtae = await axios.put(`https://fyp-container-server.vercel.app/${res.data._id}`, values)
                 if (updtae) {
                     history('/clients/list-clients')
                     toast.success("Updated Successfully")
@@ -41,7 +42,7 @@ const ContComp2 = ({ id }) => {
 
 
 
-    return (
+return (
         <>
             <Container style={{ width: "100%", height: "90vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Card className="my-2" style={{
@@ -52,7 +53,7 @@ const ContComp2 = ({ id }) => {
                 }}>
                     <CardHeader>
                         <h3>
-                            Edit Details
+                            Edit Detailsklklssadsad
                         </h3>
                     </CardHeader>
                     <Form onSubmit={handleSubmit}>

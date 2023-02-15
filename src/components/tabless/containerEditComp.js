@@ -3,7 +3,7 @@ import { Button } from '@mui/material'
 import axios from 'axios'
 import { useFormik } from 'formik'
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Container, Form, FormGroup, FormText, Input, Label } from 'reactstrap'
 import './tabl.css'
@@ -11,27 +11,26 @@ import './tabl.css'
 
 
 const initialValues = {
-    name: "",
-    email: "",
+    containerId: "",
+    clientId: "",
 }
 
 
 
-const EditComp2 = ({ id }) => {
-    console.log("id :", id)
-    console.log("id :", id)
-    console.log("id :", id)
-    console.log("id :", id)
+const ContainerEdit = () => {
     const history = useNavigate()
+    const location = useLocation()
+    console.log("id:", location.state.here)
+
 
     const { values, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
         onSubmit: async (values) => {
             try {
-                const res = await axios.get(`https://fyp-container-server.vercel.app/clients/${id}`)
-                const updtae = await axios.put(`https://fyp-container-server.vercel.app/clients/${res.data._id}`, values)
+                const res = await axios.get(`https://fyp-container-server.vercel.app/${location.state.here}`)
+                const updtae = await axios.put(`https://fyp-container-server.vercel.app/${res.data._id}`, values)
                 if (updtae) {
-                    history('/clients/list-clients')
+                    history('/containers/list_containers')
                     toast.success("Updated Successfully")
                 }
             }
@@ -42,17 +41,6 @@ const EditComp2 = ({ id }) => {
     })
 
 
-    // const handleUpdate = async () => {
-    //     // try {
-    //     const res = await axios.get(`http://localhost:4000/clients/${id}`)
-    //     //     if (res) {
-    //     //         toast.success("Updated Successfully")
-    //     //     }
-    //     // } catch (error) {
-    //     //     toast.error(error.response.data.message)
-    //     // }
-    //     console.log(res)
-    // }
 
 
 
@@ -73,25 +61,25 @@ const EditComp2 = ({ id }) => {
                     <Form onSubmit={handleSubmit}>
                         <FormGroup>
                             <Label for="exampleEmail">
-                                Name
+                                ContainerId
                             </Label>
                             <Input
                                 id="exampleEmail"
-                                name="name"
+                                name="containerId"
+                                value={values.containerId}
                                 onChange={handleChange}
-                                value={values.name}
                                 type="text"
                             />
                         </FormGroup>
                         <FormGroup>
                             <Label for="exampleEmail">
-                                Email <span style={{ color: "red" }}>*</span>
+                                ClientId <span style={{ color: "red" }}>*</span>
                             </Label>
                             <Input
                                 id="exampleEmail"
-                                name="email"
-                                type="email"
-                                value={values.email}
+                                name="containerId"
+                                type="text"
+                                value={values.clientId}
                                 onChange={handleChange}
                             />
                         </FormGroup>
@@ -117,4 +105,4 @@ const EditComp2 = ({ id }) => {
     )
 }
 
-export default EditComp2;
+export default ContainerEdit;

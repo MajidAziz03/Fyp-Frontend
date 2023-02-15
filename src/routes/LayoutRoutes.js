@@ -27,10 +27,10 @@ import ClientPower from '../components/powerbi/powerbiClient'
 import ContainerPower from '../components/powerbi/containerPower'
 import ClientTable from '../components/tabless/clientTable'
 import ContainerTable from '../components/tabless/containerTable'
-import UpdateCard from '../components/tabless/updateCard'
-import EditComp2 from '../components/tabless/clientEdit'
 import Forcast from '../components/forcast/Forcast'
 import YearlyForcast from '../components/forcast/yearly'
+import ContComp2 from '../components/tabless/contComp2'
+import ContainerEdit from '../components/tabless/containerEditComp'
 
 // import InvoicePage from '../components/invoices/invoicePage.js'
 
@@ -97,8 +97,12 @@ const LayoutRoutes = () => {
 						element={<Createvendors />}
 					/>
 					<Route
-						path={`${process.env.PUBLIC_URL}/containers/edit-containers`}
-						element={<EditComp2 />}
+						path={`${process.env.PUBLIC_URL}/containers/edit-container`}
+						element={<ContainerEdit />}
+					/>
+					<Route
+						path={`${process.env.PUBLIC_URL}/clients/edit-clients`}
+						element={<ContComp2 />}
 					/>
 					<Route
 						path={`${process.env.PUBLIC_URL}/esl/invoices`}

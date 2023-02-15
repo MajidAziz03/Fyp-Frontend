@@ -37,6 +37,8 @@ const LoginTabset = () => {
 		})
 		if (response.status) {
 			setIsLoading(false)
+			setEmail('')
+			setPassword('')
 			history(`${process.env.PUBLIC_URL}/dashboard`);
 		}
 
