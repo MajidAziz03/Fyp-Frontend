@@ -12,10 +12,13 @@ import { Card, CardBody, CardHeader, CardText, CardTitle, Container, Input, Pagi
 import Breadcrumb from '../common/breadcrumb'
 import ContComp2 from './contComp2'
 import './tabl.css'
+import ReactPaginate from 'react-paginate';
 
 
 
 const ClientTable = () => {
+
+
     const history = useNavigate()
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +27,12 @@ const ClientTable = () => {
     const [filteredValue, setFilteredValue] = useState([]);
     const [edit, setEdit] = useState(false);
     const [type, setType] = useState('btn');
+    const [itemOffset, setItemOffset] = useState(0);
+    const [currentItem, setCurrentItems] = useState([]);
+    const [pageCount, setPageCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 10;
+
 
 
     const getClients = async () => {
@@ -38,6 +47,7 @@ const ClientTable = () => {
     useEffect(() => {
         getClients()
     }, [])
+
 
 
     const handleDelete = async (id) => {
@@ -74,6 +84,21 @@ const ClientTable = () => {
         history('/clients/edit-clients', { state: { here: id, name: 'sabaoon' } });
     }
 
+
+    useEffect(() => {
+        const endOffset = itemOffset + itemsPerPage;
+        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+        setCurrentItems(data.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(data.length / itemsPerPage));
+    }, [itemOffset, itemsPerPage, data])
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % data.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
 
     return (
         <Fragment>
@@ -186,7 +211,7 @@ const ClientTable = () => {
                                             )
                                             :
                                             (
-                                                data.map((client) => (
+                                                currentItem.map((client) => (
                                                     <>
                                                         <tr key={client._id}>
                                                             <td>
@@ -240,57 +265,20 @@ const ClientTable = () => {
                                 </tbody>
                             </Table>
                             <div className="containerPage">
-                                {/* <Pagination>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            first
-                                            href="#"
-                                        />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            href="#"
-                                            previous
-                                        />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            1
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            2
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            3
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            4
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            5
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            href="#"
-                                            next
-                                        />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            href="#"
-                                            last
-                                        />
-                                    </PaginationItem>
-                                </Pagination> */}
+                                <ReactPaginate
+                                    breakLabel="..."
+                                    nextLabel="next >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={5}
+                                    pageCount={pageCount}
+                                    previousLabel="< previous"
+                                    renderOnZeroPageCount={null}
+                                    containerClassName='containerPagination'
+                                    pageLinkClassName='page-num'
+                                    previousLinkClassName='page-num'
+                                    nextLinkClassName='page-num'
+                                    activeLinkClassName='active'
+                                />
                             </div>
                         </div>
                     </CardBody>

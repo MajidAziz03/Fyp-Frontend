@@ -5,29 +5,31 @@ import { addClient, addContainer } from "../../utils";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
+import { useFormik } from "formik";
+
+
+
+const initialValues = {
+	containerId: '',
+	clientId: ''
+}
+
 
 const CustomContainer = () => {
 
-	const [clientId, setClientId] = useState("")
-	const [containerId, setContainerId] = useState("")
 
-
-
-	const onAddClient = async () => {
-		try {
-			const adde = await axios.post('https://fyp-container-server.vercel.app/containers', {
-				clientId,
-				containerId
-			})
-			if (adde) {
-				toast.success("Container created successfully")
+	const { values, handleChange, handleSubmit } = useFormik({
+		initialValues: initialValues,
+		onSubmit: async (values) => {
+			try {
+				const res = await axios.post('https://fyp-container-server.vercel.app/containers', values)
+				toast.success("Container Added Successfully")
 			}
-		} catch (error) {
-			console.log(error)
-			toast.error(error.response.data.message)
+			catch (error) {
+				toast.error(error.response.data.message)
+			}
 		}
-	}
-
+	})
 
 	return (
 		<Fragment>
@@ -36,7 +38,8 @@ const CustomContainer = () => {
 					<Tab className="nav-link">Container</Tab>
 				</TabList>
 				<TabPanel>
-					<Form className="needs-validation user-add" noValidate="">
+					{/* <Form className="needs-validation user-add" noValidate=""> */}
+					<Form onSubmit={handleSubmit}>
 						<h4>Container Details</h4>
 						<FormGroup className="row">
 							<Label className="col-xl-3 col-md-4">
@@ -46,8 +49,10 @@ const CustomContainer = () => {
 								<Input
 									className="form-control"
 									id="validationCustom0"
-									value={containerId}
-									onChange={(e) => setContainerId(e.target.value)}
+									name="containerId"
+									value={values.containerId}
+									// onChange={(e) => setContainerId(e.target.value)}
+									onChange={handleChange}
 									type="text"
 									required=""
 								/>
@@ -61,21 +66,26 @@ const CustomContainer = () => {
 								<Input
 									className="form-control"
 									id="validationCustom1"
-									value={clientId}
-									onChange={(e) => setClientId(e.target.value)}
+									name="clientId"
+									value={values.clientId}
+									// onChange={(e) => setClientId(e.target.value)}
+									onChange={handleChange}
 									type="text"
 									required=""
 								/>
 							</div>
 						</FormGroup>
+						<Button type="submit" color="primary" >
+							Save
+						</Button>
 					</Form>
 				</TabPanel>
 
 			</Tabs>
 			<div className="pull-right">
-				<Button type="button" color="primary" onClick={onAddClient}>
+				{/* <Button type="button" color="primary" onClick={onAddClient}>
 					Save
-				</Button>
+				</Button> */}
 			</div>
 		</Fragment>
 	);

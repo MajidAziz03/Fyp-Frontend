@@ -20,3 +20,32 @@
 .deco {
   text-decoration: none;
 }
+
+.containerPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  list-style: none;
+  text-decoration: none;
+}
+
+.containerPagination .page-num {
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.containerPagination .page-num:hover {
+  background-color: #2596be;
+  color: white;
+}
+
+.containerPagination .active {
+  background-color: #2596be;
+  color: white;
+}

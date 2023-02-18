@@ -7,12 +7,16 @@ import { Fragment } from 'react'
 import { useState } from 'react'
 import { Pagination, Table } from 'react-bootstrap'
 import { TailSpin } from 'react-loader-spinner'
+import ReactPaginate from 'react-paginate'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Card, CardBody, CardHeader, Container, Input, PaginationItem, PaginationLink } from 'reactstrap'
 import Breadcrumb from '../common/breadcrumb'
 import ContComp2 from './contComp2'
 import './tabl.css'
+
+
+
 
 
 
@@ -24,6 +28,10 @@ const ContainerTable = () => {
     const [type, setType] = useState('btn');
     const [edit, setEdit] = useState(false);
     const history = useNavigate()
+    const [itemOffset, setItemOffset] = useState(0);
+    const [currentItem, setCurrentItems] = useState([]);
+    const [pageCount, setPageCount] = useState(0);
+    const itemsPerPage = 10;
 
 
 
@@ -79,6 +87,26 @@ const ContainerTable = () => {
     }
 
 
+
+
+
+    useEffect(() => {
+        const endOffset = itemOffset + itemsPerPage;
+        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+        setCurrentItems(data.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(data.length / itemsPerPage));
+    }, [itemOffset, itemsPerPage, data])
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % data.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
+
+
     return (
         <Fragment>
             <Breadcrumb title="Containers List" parent="Containers" />
@@ -103,6 +131,7 @@ const ContainerTable = () => {
                     }
                     <CardBody>
                         <div className="container">
+                            <div style={{ display: "flex", justifyContent: "end", marginBottom: "12px" }}>Total Containers : {data.length}</div>
                             <Table hover responsive
                                 striped
                                 bordered
@@ -178,7 +207,7 @@ const ContainerTable = () => {
                                             )
                                             :
                                             (
-                                                data.map((containers) => (
+                                                currentItem.map((containers) => (
                                                     <>
                                                         <tr key={containers._id}>
                                                             <td>
@@ -224,57 +253,20 @@ const ContainerTable = () => {
                                 </tbody>
                             </Table>
                             <div className="containerPage">
-                                {/* <Pagination>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            first
-                                            href="#"
-                                        />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            href="#"
-                                            previous
-                                        />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            1
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            2
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            3
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            4
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">
-                                            5
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            href="#"
-                                            next
-                                        />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink
-                                            href="#"
-                                            last
-                                        />
-                                    </PaginationItem>
-                                </Pagination> */}
+                                <ReactPaginate
+                                    breakLabel="..."
+                                    nextLabel="next >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={5}
+                                    pageCount={pageCount}
+                                    previousLabel="< previous"
+                                    renderOnZeroPageCount={null}
+                                    containerClassName='containerPagination'
+                                    pageLinkClassName='page-num'
+                                    previousLinkClassName='page-num'
+                                    nextLinkClassName='page-num'
+                                    activeLinkClassName='active'
+                                />
                             </div>
                         </div>
                     </CardBody>
