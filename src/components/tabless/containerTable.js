@@ -16,7 +16,7 @@ import ContComp2 from './contComp2'
 import './tabl.css'
 
 
-
+// I used pagination react-paginate library 
 
 
 
